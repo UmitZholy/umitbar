@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Umit bar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background: #eef5ff;
+      color: #333;
+    }
+
+    header {
+      background-color: #4a90e2;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    section {
+      padding: 20px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #4a90e2;
+      margin-top: 30px;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .quote, .support {
+      background-color: white;
+      margin: 15px auto;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      max-width: 420px;
+      font-size: 17px;
+      line-height: 1.6;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .quote:nth-of-type(1) { animation-delay: 0.2s; }
+    .quote:nth-of-type(2) { animation-delay: 0.4s; }
+    .quote:nth-of-type(3) { animation-delay: 0.6s; }
+    .quote:nth-of-type(4) { animation-delay: 0.8s; }
+    .quote:nth-of-type(5) { animation-delay: 1s; }
+    .quote:nth-of-type(6) { animation-delay: 1.2s; }
+    .quote:nth-of-type(7) { animation-delay: 1.4s; }
+    .quote:nth-of-type(8) { animation-delay: 1.6s; }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 20px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      color: #777;
+      margin-top: 40px;
+    }
+
+    textarea, input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Umit bar</h1>
+    <p>Сайт поддержки для подростков таких же как я, и для всех, кто нуждается в словах тепла</p>
+  </header>
+
+  <section>
+    <h2>Слова поддержки и тепла</h2>
+
+    <div class="quote">Даже если сейчас трудно — ты обязательно справишься.</div>
+    <div class="quote">Ты важен. Мир был бы другим без тебя.</div>
+    <div class="quote">Твои чувства имеют значение.</div>
+    <div class="quote">Никогда не поздно начать всё сначала.</div>
+    <div class="quote">Каждый день это шанс, чтобы начать всё сначала.</div>
+    <div class="quote">Даже если ты не видишь свет — он есть.</div>
+    <div class="quote">Ты не один. Мы рядом.</div>
+    <div class="quote">Не бойся просить помощи. Ты не один.</div>
+
+    <h2>Раздел "Umit bar"</h2>
+    <div class="support">
+      Привет, я ничего не скажу, просто посмотри наш сайт — может, тебе станет лучше.  
+      И этот сайт — маленький уголок, где тебя понимают).
+    </div>
+
+    <h2>Поделись своей историей</h2>
+    <form class="support" onsubmit="event.preventDefault(); sendMessage('story'); this.reset();">
+      <textarea id="storyInput" rows="6" placeholder="Напиши свою историю..."></textarea>
+      <br>
+      <button class="btn" type="submit">Отправить</button>
+    </form>
+
+    <h2>Добавь свою цитату</h2>
+    <form class="support" onsubmit="event.preventDefault(); sendMessage('quote'); this.reset();">
+      <input type="text" id="quoteInput" placeholder="Твоя цитата..." />
+      <br><br>
+      <button class="btn" type="submit">Добавить</button>
+    </form>
+  </section>
+
+  <footer>
+    Сайт создан с понимающим незнакомцем | 2025
+  </footer>
+
+  <script>
+    const botToken = "7842244275:AAFEFr7fwjSeCVnj1FTm9txIhZpkWWHfl_c";
+    const chatId = "2071572237";
+
+    function sendMessage(type) {
+      const story = document.getElementById("storyInput")?.value.trim();
+      const quote = document.getElementById("quoteInput")?.value.trim();
+      let text = "";
+
+      if (type === "story" && story) {
+        text = `Новая история:\n\n${story}`;
+      } else if (type === "quote" && quote) {
+        text = `Новая цитата:\n\n"${quote}"`;
+      } else {
+        alert("Пожалуйста, введите текст.");
+        return;
+      }
+
+      const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}`;
+
+      fetch(url)
+        .then(() => alert("Спасибо! Отправлено."))
+        .catch(() => alert("Ошибка при отправке."));
+    }
+  </script>
+</body>
+</html>
