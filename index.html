@@ -198,6 +198,7 @@
     const chatId = "2071572237";
 
     function sendMessage(type) {
+      console.log("Функция sendMessage вызвана с типом:", type);
       const story = document.getElementById("storyInput")?.value.trim();
       const quote = document.getElementById("quoteInput")?.value.trim();
       let text = "";
