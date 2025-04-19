@@ -13,20 +13,24 @@
       background: #eef5ff;
       color: #333;
     }
+
     header {
       background-color: #4a90e2;
       color: white;
       padding: 30px 20px;
       text-align: center;
     }
+
     section {
       padding: 20px;
       text-align: center;
     }
+
     h2 {
       color: #4a90e2;
       margin-top: 30px;
     }
+
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -37,6 +41,7 @@
         transform: translateY(0);
       }
     }
+
     .quote, .support {
       background-color: white;
       margin: 15px auto;
@@ -49,6 +54,7 @@
       opacity: 0;
       animation: fadeInUp 0.6s ease forwards;
     }
+
     .quote:nth-of-type(1) { animation-delay: 0.2s; }
     .quote:nth-of-type(2) { animation-delay: 0.4s; }
     .quote:nth-of-type(3) { animation-delay: 0.6s; }
@@ -57,6 +63,7 @@
     .quote:nth-of-type(6) { animation-delay: 1.2s; }
     .quote:nth-of-type(7) { animation-delay: 1.4s; }
     .quote:nth-of-type(8) { animation-delay: 1.6s; }
+
     .btn {
       display: inline-block;
       margin-top: 20px;
@@ -69,6 +76,7 @@
       font-size: 16px;
       cursor: pointer;
     }
+
     footer {
       text-align: center;
       padding: 15px;
@@ -76,6 +84,7 @@
       color: #777;
       margin-top: 40px;
     }
+
     textarea, input[type="text"] {
       width: 100%;
       padding: 10px;
@@ -83,25 +92,32 @@
       border: 1px solid #ccc;
       box-sizing: border-box;
     }
+
+    /* Адаптивность для маленьких экранов */
     @media (max-width: 600px) {
       header {
         padding: 20px 10px;
       }
+
       h1 {
         font-size: 24px;
       }
+
       section {
         padding: 15px 10px;
       }
+
       .quote, .support {
         font-size: 16px;
         padding: 16px;
         max-width: 100%;
       }
+
       .btn {
         width: 100%;
         font-size: 15px;
       }
+
       textarea, input[type="text"] {
         font-size: 15px;
       }
@@ -116,6 +132,7 @@
 
   <section>
     <h2>Слова поддержки и тепла</h2>
+
     <div class="quote">Даже если сейчас трудно — ты обязательно справишься.</div>
     <div class="quote">Ты важен. Мир был бы другим без тебя.</div>
     <div class="quote">Твои чувства имеют значение.</div>
@@ -144,87 +161,73 @@
       <br><br>
       <button class="btn" type="submit">Добавить</button>
     </form>
-
     <h2>Советы и ресурсы</h2>
-    <div class="support">
-      - Если тебе тяжело — попробуй поделиться с кем-то.<br>
-      - Прогулка, музыка или просто поговорить с кем-то может помочь.<br>
-      - Ты не обязан быть сильным всегда. Ты имеешь право на слабость.<br>
-      - Если совсем тяжело — напиши нам. Мы рядом.
-    </div>
+<div class="support">
+  - Если тебе тяжело — попробуй поделиться с кем-то.<br>
+  - Прогулка, музыка или просто поговорить с кем-то может помочь.<br>
+  - Ты не обязан быть сильным всегда. Ты имеешь право на слабость.<br>
+  - Если совсем тяжело — напиши нам. Мы рядом.
+</div>
 
-    <h2>Анонимные сообщения</h2>
-    <div class="support">
-      Скоро здесь появятся анонимные истории от других людей, как ты.  
-      <br>Мы работаем над тем, чтобы ты мог не только писать, но и читать чужие мысли.
-    </div>
+<h2>Анонимные сообщения</h2>
+<div class="support">
+  Скоро здесь появятся анонимные истории от других людей, как ты.  
+  <br>Мы работаем над тем, чтобы ты мог не только писать, но и читать чужие мысли.
+</div>
 
-    <h2>Уголок для музыки</h2>
-    <div class="support">
-      Иногда музыка — лучший друг. Вот несколько музыки из моего плейлиста:<br><br>
-      - <a href="https://open.spotify.com/track/2JjZQ0puhcx8wXdGN3GGli?si=MmRAY9S9RaKOQgCLkAMBwQ" target="_blank">Untouchable #1</a><br>
-      - <a href="https://open.spotify.com/track/1GNo1hX3LJP7SeEaVn8kuY?si=5cejHna1QBufCnIdwgSfSA" target="_blank">Музе #2</a><br>
-      - <a href="https://open.spotify.com/track/0TKJAeWKYUxDF7oFzWTJUA?si=kysS3QNPTlOKuvWU6exDdQ" target="_blank">T.G.G. #3</a><br><br>
-      Или же, можете подписаться на мой музыкальный Telegram-канал. И слушать мой плейлист от туда, у меня не плохой уж и вкус. В музыке)):  
-      <a href="https://t.me/+tLpuSo2B5NFjZGJi" target="_blank">мой Telegram-канал</a><br>
-      Или же Spotify 
-      <a href="https://open.spotify.com/playlist/1EkXDvSRWHiE1bMJa8ElR0?si=dZveWt-FRWKxPwd2zSSZeQ&pi=38Pp7MniSO-Jr" target="_blank">мой плейлист в Spotify</a>
-    </div>
+<h2>Уголок для музыки</h2>
+<div class="support">
+  Иногда музыка — лучший друг. Вот несколько музыки из моего плейлиста:<br><br>
+  - <a href="https://open.spotify.com/track/2JjZQ0puhcx8wXdGN3GGli?si=MmRAY9S9RaKOQgCLkAMBwQ" target="_blank">Untouchable #1</a><br>
+  - <a href="https://open.spotify.com/track/1GNo1hX3LJP7SeEaVn8kuY?si=5cejHna1QBufCnIdwgSfSA" target="_blank">Музе #2</a><br>
+  - <a href="https://open.spotify.com/track/0TKJAeWKYUxDF7oFzWTJUA?si=kysS3QNPTlOKuvWU6exDdQ" target="_blank">T.G.G. #3</a><br><br>
+  Или же, можете подписаться на мой музыкальный Telegram-канал. И слушать мой плейлист от туда, у меня не плохой уж и вкус. В музыке)):  
+  <a href="https://t.me/+tLpuSo2B5NFjZGJi" target="_blank">мой Telegram-канал</a>
+  Или же Spotify 
+  <a href="https://open.spotify.com/playlist/1EkXDvSRWHiE1bMJa8ElR0?si=dZveWt-FRWKxPwd2zSSZeQ&pi=38Pp7MniSO-Jr" target="_blank">мой плейлист в Spotify</a>
+</div>
+</div>
   </section>
 
   <footer>
     Сайт создан с понимающим незнакомцем | 2025
   </footer>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js"></script>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDxUlnP5z7r4UPtASJqoocTI6PBISlFcU0",
-      authDomain: "umitbar-2a7c1.firebaseapp.com",
-      projectId: "umitbar-2a7c1",
-      storageBucket: "umitbar-2a7c1.appspot.com",
-      messagingSenderId: "363649035498",
-      appId: "1:363649035498:web:47da67b0c213e8fce9fb93",
-      measurementId: "G-VFHDK0G5XZ"
-    };
+  <script>
+    const botToken = "7842244275:AAFEFr7fwjSeCVnj1FTm9txIhZpkWWHfl_c";
+    const chatId = "2071572237";
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    window.sendMessage = async function(type) {
+    function sendMessage(type) {
       const story = document.getElementById("storyInput")?.value.trim();
       const quote = document.getElementById("quoteInput")?.value.trim();
 
-      if (type === "story" && story) {
-        try {
-          await addDoc(collection(db, "stories"), {
-            text: story,
-            timestamp: serverTimestamp(),
-            pending: true
-          });
-          alert("Спасибо! Ваша история отправлена на модерацию.");
-        } catch (e) {
-          console.error("Ошибка при добавлении истории: ", e);
-          alert("Ошибка. Попробуйте снова.");
-        }
-      } else if (type === "quote" && quote) {
-        try {
-          await addDoc(collection(db, "quotes"), {
-            text: quote,
-            timestamp: serverTimestamp(),
-            pending: true
-          });
-          alert("Цитата отправлена на модерацию.");
-        } catch (e) {
-          console.error("Ошибка при добавлении цитаты: ", e);
-          alert("Ошибка. Попробуйте снова.");
-        }
-      } else {
-        alert("Пожалуйста, введите текст.");
+      let message = '';
+      if (type === 'story' && story) {
+        message = `История: \n${story}`;
+      } else if (type === 'quote' && quote) {
+        message = `Цитата: \n${quote}`;
       }
-    };
+
+      if (message) {
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.ok) {
+              alert("Сообщение отправлено!");
+            } else {
+              alert("Произошла ошибка при отправке сообщения.");
+            }
+          })
+          .catch(error => {
+            alert("Произошла ошибка при отправке.");
+            console.error("Ошибка:", error);
+          });
+      }
+    }
   </script>
 </body>
 </html>
