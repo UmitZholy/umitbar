@@ -143,6 +143,36 @@
       <a href="https://t.me/+tLpuSo2B5NFjZGJi" target="_blank">мой Telegram-канал</a> | 
       <a href="https://open.spotify.com/playlist/1EkXDvSRWHiE1bMJa8ElR0?si=dZveWt-FRWKxPwd2zSSZeQ&pi=38Pp7MniSO-Jr" target="_blank">мой плейлист в Spotify</a>
     </div>
+  
+    <h2>Анонимные сообщение. Анонимные история</h2>
+    <div id="approvedStories" class="support">Анонимных историй, сообщений нету</div>
+
+    <script>
+      // Загружаем одобренные истории из Firebase
+      db.collection("submissions")
+        .where("type", "==", "story")
+        .where("approved", "==", true)
+        .orderBy("createdAt", "desc")
+        .get()
+        .then((querySnapshot) => {
+          const container = document.getElementById("approvedStories");
+          if (querySnapshot.empty) {
+            container.innerHTML = "Историй пока нет.";
+            return;
+          }
+          container.innerHTML = "";
+          querySnapshot.forEach((doc) => {
+            const div = document.createElement("div");
+            div.className = "quote";
+            div.textContent = doc.data().message;
+            container.appendChild(div);
+          });
+        })
+        .catch((error) => {
+          console.error("Ошибка загрузки историй:", error);
+        });
+    </script>
+
   </section>
   <footer>Сайт создан с понимающим незнакомцем | 2025</footer>
 
