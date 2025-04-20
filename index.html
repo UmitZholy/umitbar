@@ -242,7 +242,7 @@
         });
 
       // Сохраняем в Firebase
-      db.collection("submissions").add(dataToSave)
+      db.collection("stories").add(dataToSave)
         .then(() => {
           console.log("Успешно сохранено в Firestore.");
         })
