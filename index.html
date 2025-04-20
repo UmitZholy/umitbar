@@ -144,32 +144,32 @@
       <a href="https://open.spotify.com/playlist/1EkXDvSRWHiE1bMJa8ElR0?si=dZveWt-FRWKxPwd2zSSZeQ&pi=38Pp7MniSO-Jr" target="_blank">мой плейлист в Spotify</a>
     </div>
   
-    <h2>Анонимные сообщение. Анонимные история</h2>
-    <div id="approvedStories" class="support">Анонимных историй, сообщений нету</div>
+    <h2>Последние отправленные истории (для проверки)</h2>
+    <div id="recentStories" class="support">Загрузка...</div>
 
     <script>
-      // Загружаем одобренные истории из Firebase
       db.collection("submissions")
         .where("type", "==", "story")
-        .where("approved", "==", true)
         .orderBy("createdAt", "desc")
+        .limit(5)
         .get()
         .then((querySnapshot) => {
-          const container = document.getElementById("approvedStories");
+          const container = document.getElementById("recentStories");
           if (querySnapshot.empty) {
             container.innerHTML = "Историй пока нет.";
             return;
           }
           container.innerHTML = "";
           querySnapshot.forEach((doc) => {
+            const data = doc.data();
             const div = document.createElement("div");
             div.className = "quote";
-            div.textContent = doc.data().message;
+            div.innerHTML = "<b>История:</b><br>" + data.message + (data.approved ? "<br><i>(одобрено)</i>" : "<br><i>(не одобрено)</i>");
             container.appendChild(div);
           });
         })
         .catch((error) => {
-          console.error("Ошибка загрузки историй:", error);
+          console.error("Ошибка при загрузке историй:", error);
         });
     </script>
 
