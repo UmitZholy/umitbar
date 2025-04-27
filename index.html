@@ -30,19 +30,15 @@
       transition: background 0.5s, color 0.5s;
     }
     header {
-      background-color: var(--btn-bg);
+      background: var(--btn-bg);
       color: white;
       padding: 40px 20px;
       text-align: center;
       position: relative;
       transition: background 0.5s;
     }
-    header::after {
-      content: '❤️';
-      font-size: 24px;
-      position: absolute;
-      top: 20px;
-      left: 20px;
+    body.dark header {
+      background: var(--btn-bg);
     }
     #themeToggle {
       position: absolute;
@@ -73,6 +69,7 @@
       color: var(--btn-bg);
       margin-top: 40px;
       font-size: 24px;
+      transition: color 0.5s;
     }
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -114,6 +111,7 @@
       font-size: 14px;
       color: #777;
       margin-top: 50px;
+      transition: color 0.5s;
     }
     textarea, input[type="text"] {
       width: 100%;
@@ -200,97 +198,7 @@
     Создано с душой | Umit bar © 2025
   </footer>
 
-  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js"></script>
-
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyDxUlnP5z7r4UPtASJqoocTI6PBISlFcU0",
-      authDomain: "umitbar-2a7c1.firebaseapp.com",
-      projectId: "umitbar-2a7c1",
-      storageBucket: "umitbar-2a7c1.appspot.com",
-      messagingSenderId: "363649035498",
-      appId: "1:363649035498:web:47da67b0c213e8fce9fb93",
-      measurementId: "G-VFHDK0G5XZ"
-    };
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-    const db = firebase.firestore();
-
-    function loadStories() {
-      db.collection("submissions")
-        .where("type", "==", "story")
-        .where("approved", "==", true)
-        .orderBy("createdAt", "desc")
-        .get()
-        .then(snapshot => {
-          const container = document.getElementById("approvedStories");
-          if (snapshot.empty) {
-            container.textContent = "Историй пока нет.";
-            return;
-          }
-          container.innerHTML = "";
-          snapshot.forEach(doc => {
-            const div = document.createElement("div");
-            div.className = "quote";
-            div.textContent = doc.data().message;
-            container.appendChild(div);
-          });
-        })
-        .catch(error => {
-          console.error("Ошибка загрузки историй:", error);
-        });
-    }
-
-    function sendMessage(type) {
-      const story = document.getElementById("storyInput")?.value.trim();
-      const quote = document.getElementById("quoteInput")?.value.trim();
-      const botToken = "7842244275:AAFEFr7fwjSeCVnj1FTm9txIhZpkWWHfl_c";
-      const chatId = "2071572237";
-
-      let message = '';
-      let dataToSave = {};
-
-      if (type === 'story' && story) {
-        message = `История: \n${story}`;
-        dataToSave = { type: 'story', message: story, createdAt: new Date().toISOString() };
-      } else if (type === 'quote' && quote) {
-        message = `Цитата: \n${quote}`;
-        dataToSave = { type: 'quote', message: quote, createdAt: new Date().toISOString() };
-      } else {
-        alert("Пожалуйста, заполните поле перед отправкой.");
-        return;
-      }
-
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.ok) {
-            alert("Сообщение отправлено!");
-            if (type === 'story') document.getElementById("storyInput").value = '';
-            if (type === 'quote') document.getElementById("quoteInput").value = '';
-          } else {
-            alert("Ошибка при отправке в Telegram.");
-          }
-        })
-        .catch(error => {
-          console.error("Ошибка при отправке:", error);
-          alert("Ошибка при отправке.");
-        });
-
-      db.collection("submissions").add(dataToSave)
-        .then(() => {
-          console.log("Успешно сохранено в Firestore.");
-        })
-        .catch(error => {
-          console.error("Ошибка сохранения:", error);
-        });
-    }
-
-    loadStories();
-
-    // Переключение темы
     const themeToggle = document.getElementById('themeToggle');
     themeToggle.addEventListener('click', () => {
       document.body.classList.toggle('dark');
