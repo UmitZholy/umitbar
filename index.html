@@ -6,166 +6,115 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="favicon.png" type="image/png">
   <style>
-    :root {
-      --bg-color: #eef5ff;
-      --text-color: #333;
-      --card-bg: white;
-      --btn-bg: #4a90e2;
-      --btn-hover: #357ABD;
-    }
-    body.dark {
-      --bg-color: #1e1e2f;
-      --text-color: #f0f0f0;
-      --card-bg: #2a2a3d;
-      --btn-bg: #6a5acd;
-      --btn-hover: #7b68ee;
-    }
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      scroll-behavior: smooth;
-      transition: background 0.5s, color 0.5s;
+      font-family: sans-serif;
+      background: #eef5ff;
+      color: #333;
     }
     header {
-      background: var(--btn-bg);
+      background-color: #4a90e2;
       color: white;
-      padding: 40px 20px;
-      text-align: center;
-      position: relative;
-      transition: background 0.5s;
-    }
-    body.dark header {
-      background: var(--btn-bg);
-    }
-    #themeToggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: var(--card-bg);
-      color: var(--text-color);
-      border: none;
-      border-radius: 20px;
-      padding: 8px 14px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: background 0.4s, color 0.4s;
-    }
-    h1 {
-      margin-bottom: 10px;
-      font-size: 32px;
-    }
-    p {
-      font-size: 18px;
-      margin: 0;
-    }
-    section {
       padding: 30px 20px;
       text-align: center;
     }
+    section {
+      padding: 20px;
+      text-align: center;
+    }
     h2 {
-      color: var(--btn-bg);
-      margin-top: 40px;
-      font-size: 24px;
-      transition: color 0.5s;
+      color: #4a90e2;
+      margin-top: 30px;
     }
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
     .quote, .support {
-      background-color: var(--card-bg);
-      margin: 20px auto;
-      padding: 24px;
-      border-radius: 20px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
-      font-size: 18px;
-      line-height: 1.7;
+      background-color: white;
+      margin: 15px auto;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      max-width: 420px;
+      font-size: 17px;
+      line-height: 1.6;
       opacity: 0;
-      animation: fadeInUp 0.8s ease forwards;
-      transition: background 0.5s, color 0.5s;
+      animation: fadeInUp 0.6s ease forwards;
     }
+    .quote:nth-of-type(1) { animation-delay: 0.2s; }
+    .quote:nth-of-type(2) { animation-delay: 0.4s; }
+    .quote:nth-of-type(3) { animation-delay: 0.6s; }
+    .quote:nth-of-type(4) { animation-delay: 0.8s; }
+    .quote:nth-of-type(5) { animation-delay: 1s; }
+    .quote:nth-of-type(6) { animation-delay: 1.2s; }
+    .quote:nth-of-type(7) { animation-delay: 1.4s; }
+    .quote:nth-of-type(8) { animation-delay: 1.6s; }
     .btn {
       display: inline-block;
       margin-top: 20px;
-      padding: 14px 24px;
-      background-color: var(--btn-bg);
+      padding: 12px 20px;
+      background-color: #4a90e2;
       color: white;
       border: none;
-      border-radius: 14px;
+      border-radius: 8px;
       text-decoration: none;
-      font-size: 17px;
+      font-size: 16px;
       cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
-    }
-    .btn:hover {
-      background-color: var(--btn-hover);
-      transform: translateY(-2px);
     }
     footer {
       text-align: center;
-      padding: 20px;
+      padding: 15px;
       font-size: 14px;
       color: #777;
-      margin-top: 50px;
-      transition: color 0.5s;
+      margin-top: 40px;
     }
     textarea, input[type="text"] {
       width: 100%;
-      padding: 12px;
-      border-radius: 10px;
+      padding: 10px;
+      border-radius: 8px;
       border: 1px solid #ccc;
       box-sizing: border-box;
-      font-size: 16px;
-      background: var(--card-bg);
-      color: var(--text-color);
-      transition: background 0.5s, color 0.5s;
     }
     @media (max-width: 600px) {
-      header { padding: 30px 15px; }
-      h1 { font-size: 26px; }
-      p { font-size: 16px; }
-      h2 { font-size: 22px; }
-      section { padding: 20px 10px; }
-      .quote, .support { font-size: 16px; padding: 20px; max-width: 100%; }
-      .btn { width: 100%; font-size: 16px; }
+      header { padding: 20px 10px; }
+      h1 { font-size: 24px; }
+      section { padding: 15px 10px; }
+      .quote, .support { font-size: 16px; padding: 16px; max-width: 100%; }
+      .btn { width: 100%; font-size: 15px; }
       textarea, input[type="text"] { font-size: 15px; }
     }
   </style>
 </head>
 <body>
   <header>
-    <button id="themeToggle">Ночь</button>
     <h1>Umit bar</h1>
-    <p>Сайт поддержки для подростков и всех, кому нужно тепло</p>
+    <p>Сайт поддержки для подростков таких же как я, и для всех, кто нуждается в словах тепла</p>
   </header>
-
   <section>
     <h2>Слова поддержки и тепла</h2>
     <div class="quote">Даже если сейчас трудно — ты обязательно справишься.</div>
     <div class="quote">Ты важен. Мир был бы другим без тебя.</div>
     <div class="quote">Твои чувства имеют значение.</div>
     <div class="quote">Никогда не поздно начать всё сначала.</div>
-    <div class="quote">Каждый день — это новый шанс.</div>
+    <div class="quote">Каждый день это шанс, чтобы начать всё сначала.</div>
     <div class="quote">Даже если ты не видишь свет — он есть.</div>
     <div class="quote">Ты не один. Мы рядом.</div>
     <div class="quote">Не бойся просить помощи. Ты не один.</div>
 
     <h2>Раздел "Umit bar"</h2>
-    <div class="support">Привет! Просто останься здесь на минутку. Мы верим: даже через экран можно передать тепло. Ты не один.</div>
+    <div class="support">Привет, я ничего не скажу, просто посмотри наш сайт — может, тебе станет лучше. И этот сайт — маленький уголок, где тебя понимают).</div>
 
     <h2>Поделись своей историей</h2>
-    <form class="support" onsubmit="event.preventDefault(); sendMessage('story');">
+    <form class="support" onsubmit="event.preventDefault(); sendMessage('story'); this.reset();">
       <textarea id="storyInput" rows="6" placeholder="Напиши свою историю..."></textarea>
       <br>
       <button class="btn" type="submit">Отправить</button>
     </form>
 
     <h2>Добавь свою цитату</h2>
-    <form class="support" onsubmit="event.preventDefault(); sendMessage('quote');">
+    <form class="support" onsubmit="event.preventDefault(); sendMessage('quote'); this.reset();">
       <input type="text" id="quoteInput" placeholder="Твоя цитата..." />
       <br><br>
       <button class="btn" type="submit">Добавить</button>
@@ -173,37 +122,135 @@
 
     <h2>Советы и ресурсы</h2>
     <div class="support">
-      - Делись своими переживаниями с теми, кому доверяешь.<br>
-      - Иногда музыка, прогулка или добрый разговор — лучшее лекарство.<br>
-      - Ты имеешь право на отдых и заботу о себе.<br>
-      - Если очень тяжело — напиши нам. Ты не один.
+      - Если тебе тяжело — попробуй поделиться с кем-то.<br>
+      - Прогулка, музыка или просто поговорить с кем-то может помочь.<br>
+      - Ты не обязан быть сильным всегда. Ты имеешь право на слабость.<br>
+      - Если совсем тяжело — напиши нам. Мы рядом.
     </div>
 
-    <h2>Анонимные сообщения и истории</h2>
-    <div id="approvedStories" class="support">Историй пока нет...</div>
+    <h2>Анонимные сообщения</h2>
+    <div class="support">
+      Скоро здесь появятся анонимные истории от других людей, как ты.<br>
+      Мы работаем над тем, чтобы ты мог не только писать, но и читать чужие мысли.
+    </div>
 
     <h2>Уголок для музыки</h2>
     <div class="support">
-      Иногда музыка — лучший друг. Несколько треков из моего плейлиста:<br><br>
-      - <a href="https://open.spotify.com/track/2JjZQ0puhcx8wXdGN3GGli" target="_blank">Untouchable #1</a><br>
-      - <a href="https://open.spotify.com/track/1GNo1hX3LJP7SeEaVn8kuY" target="_blank">Музе #2</a><br>
-      - <a href="https://open.spotify.com/track/0TKJAeWKYUxDF7oFzWTJUA" target="_blank">T.G.G. #3</a><br><br>
-      <a href="https://t.me/+tLpuSo2B5NFjZGJi" target="_blank">Мой Telegram-канал</a> | 
-      <a href="https://open.spotify.com/playlist/1EkXDvSRWHiE1bMJa8ElR0" target="_blank">Плейлист в Spotify</a>
+      Иногда музыка — лучший друг. Вот несколько треков из моего плейлиста:<br><br>
+      - <a href="https://open.spotify.com/track/2JjZQ0puhcx8wXdGN3GGli?si=MmRAY9S9RaKOQgCLkAMBwQ" target="_blank">Untouchable #1</a><br>
+      - <a href="https://open.spotify.com/track/1GNo1hX3LJP7SeEaVn8kuY?si=5cejHna1QBufCnIdwgSfSA" target="_blank">Музе #2</a><br>
+      - <a href="https://open.spotify.com/track/0TKJAeWKYUxDF7oFzWTJUA?si=kysS3QNPTlOKuvWU6exDdQ" target="_blank">T.G.G. #3</a><br><br>
+      <a href="https://t.me/+tLpuSo2B5NFjZGJi" target="_blank">мой Telegram-канал</a> | 
+      <a href="https://open.spotify.com/playlist/1EkXDvSRWHiE1bMJa8ElR0?si=dZveWt-FRWKxPwd2zSSZeQ&pi=38Pp7MniSO-Jr" target="_blank">мой плейлист в Spotify</a>
     </div>
+  
+    <h2>Анонимные сообщения и истории</h2>
+    <div id="approvedStories" class="support">Анонимных историй, сообщений нету</div>
+
+    <script>
+      // Загружаем одобренные истории из Firebase
+      db.collection("submissions")
+        .where("type", "==", "story")
+        .where("approved", "==", true)
+        .orderBy("createdAt", "desc")
+        .get()
+        .then((querySnapshot) => {
+          const container = document.getElementById("approvedStories");
+          if (querySnapshot.empty) {
+            container.innerHTML = "Историй пока нет.";
+            return;
+          }
+          container.innerHTML = "";
+          querySnapshot.forEach((doc) => {
+            const div = document.createElement("div");
+            div.className = "quote";
+            div.textContent = doc.data().message;
+            container.appendChild(div);
+          });
+        })
+        .catch((error) => {
+          console.error("Ошибка загрузки историй:", error);
+        });
+    </script>
 
   </section>
+  <footer>Сайт создан с понимающим незнакомцем | 2025</footer>
 
-  <footer>
-    Создано с душой | Umit bar © 2025
-  </footer>
-
+  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js"></script>
   <script>
-    const themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      themeToggle.textContent = document.body.classList.contains('dark') ? 'День' : 'Ночь';
-    });
+    const firebaseConfig = {
+      apiKey: "AIzaSyDxUlnP5z7r4UPtASJqoocTI6PBISlFcU0",
+      authDomain: "umitbar-2a7c1.firebaseapp.com",
+      projectId: "umitbar-2a7c1",
+      storageBucket: "umitbar-2a7c1.appspot.com",
+      messagingSenderId: "363649035498",
+      appId: "1:363649035498:web:47da67b0c213e8fce9fb93",
+      measurementId: "G-VFHDK0G5XZ"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    const db = firebase.firestore();
   </script>
+
+  
+  <script>
+  const botToken = "7842244275:AAFEFr7fwjSeCVnj1FTm9txIhZpkWWHfl_c";
+  const chatId = "2071572237";
+
+  function sendMessage(type) {
+    const story = document.getElementById("storyInput")?.value.trim();
+    const quote = document.getElementById("quoteInput")?.value.trim();
+
+    let message = '';
+    let dataToSave = {};
+
+    if (type === 'story' && story) {
+      message = `История: \n${story}`;
+      dataToSave = {
+        type: 'story',
+        message: story,
+        createdAt: new Date().toISOString()
+      };
+    } else if (type === 'quote' && quote) {
+      message = `Цитата: \n${quote}`;
+      dataToSave = {
+        type: 'quote',
+        message: quote,
+        createdAt: new Date().toISOString()
+      };
+    }
+
+    if (message && dataToSave.message) {
+      // Отправка в Telegram
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.ok) {
+            alert("Сообщение отправлено!");
+            // Очищаем поля
+            if (type === 'story') document.getElementById("storyInput").value = '';
+            if (type === 'quote') document.getElementById("quoteInput").value = '';
+          } else {
+            alert("Ошибка при отправке в Telegram.");
+          }
+        })
+        .catch(error => {
+          alert("Ошибка при отправке.");
+          console.error("Ошибка:", error);
+        });
+
+      // Сохраняем в Firebase
+      db.collection("submissions").add(dataToSave)
+        .then(() => {
+          console.log("Успешно сохранено в Firestore.");
+        })
+        .catch((error) => {
+          console.error("Ошибка при сохранении в Firestore:", error);
+        });
+    }
+  }
+</script>
 </body>
 </html>
