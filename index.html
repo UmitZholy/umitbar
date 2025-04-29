@@ -1,23 +1,47 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!DOCTYPE html><html lang="ru">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Umit bar</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Umit bar — сайт поддержки, цитаты, советы и анонимные истории. Ты не один.">
+  <meta name="keywords" content="поддержка, цитаты, мотивация, подростки, сайт поддержки, анонимные истории">
+  <meta name="author" content="Umit bar Team">
   <link rel="icon" href="favicon.png" type="image/png">
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       margin: 0;
       padding: 0;
       font-family: sans-serif;
       background: #eef5ff;
       color: #333;
+      transition: background 0.4s, color 0.4s;
     }
     header {
       background-color: #4a90e2;
       color: white;
       padding: 30px 20px;
       text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav {
+      background: #ffffff;
+      padding: 10px;
+      text-align: center;
+      position: sticky;
+      top: 80px;
+      z-index: 999;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #4a90e2;
+      font-weight: bold;
     }
     section {
       padding: 20px;
@@ -26,10 +50,6 @@
     h2 {
       color: #4a90e2;
       margin-top: 30px;
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
     .quote, .support {
       background-color: white;
@@ -43,14 +63,10 @@
       opacity: 0;
       animation: fadeInUp 0.6s ease forwards;
     }
-    .quote:nth-of-type(1) { animation-delay: 0.2s; }
-    .quote:nth-of-type(2) { animation-delay: 0.4s; }
-    .quote:nth-of-type(3) { animation-delay: 0.6s; }
-    .quote:nth-of-type(4) { animation-delay: 0.8s; }
-    .quote:nth-of-type(5) { animation-delay: 1s; }
-    .quote:nth-of-type(6) { animation-delay: 1.2s; }
-    .quote:nth-of-type(7) { animation-delay: 1.4s; }
-    .quote:nth-of-type(8) { animation-delay: 1.6s; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     .btn {
       display: inline-block;
       margin-top: 20px;
@@ -62,6 +78,10 @@
       text-decoration: none;
       font-size: 16px;
       cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .btn:hover {
+      transform: scale(1.05);
     }
     footer {
       text-align: center;
@@ -70,6 +90,19 @@
       color: #777;
       margin-top: 40px;
     }
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      font-size: 18px;
+      border: none;
+      background-color: #4a90e2;
+      color: white;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+    }
     textarea, input[type="text"] {
       width: 100%;
       padding: 10px;
@@ -77,8 +110,24 @@
       border: 1px solid #ccc;
       box-sizing: border-box;
     }
+    .dark-mode {
+      background: #121212;
+      color: #eee;
+    }
+    .dark-mode header {
+      background: #1e1e1e;
+    }
+    .dark-mode nav {
+      background: #2c2c2c;
+    }
+    .dark-mode .quote, .dark-mode .support {
+      background-color: #1e1e1e;
+      color: #eee;
+      box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+    }
     @media (max-width: 600px) {
       header { padding: 20px 10px; }
+      nav { top: 60px; }
       h1 { font-size: 24px; }
       section { padding: 15px 10px; }
       .quote, .support { font-size: 16px; padding: 16px; max-width: 100%; }
@@ -91,166 +140,42 @@
   <header>
     <h1>Umit bar</h1>
     <p>Сайт поддержки для подростков таких же как я, и для всех, кто нуждается в словах тепла</p>
-  </header>
-  <section>
+    <button class="btn" onclick="toggleDarkMode()">Переключить тему</button>
+  </header>  <nav>
+    <a href="#quotes">Цитаты</a>
+    <a href="#support">Поддержка</a>
+    <a href="#stories">Истории</a>
+    <a href="#music">Музыка</a>
+  </nav>  <section id="quotes">
     <h2>Слова поддержки и тепла</h2>
-    <div class="quote">Даже если сейчас трудно — ты обязательно справишься.</div>
-    <div class="quote">Ты важен. Мир был бы другим без тебя.</div>
-    <div class="quote">Твои чувства имеют значение.</div>
-    <div class="quote">Никогда не поздно начать всё сначала.</div>
-    <div class="quote">Каждый день это шанс, чтобы начать всё сначала.</div>
-    <div class="quote">Даже если ты не видишь свет — он есть.</div>
-    <div class="quote">Ты не один. Мы рядом.</div>
-    <div class="quote">Не бойся просить помощи. Ты не один.</div>
-
+    <!-- Цитаты -->
+  </section>  <section id="support">
     <h2>Раздел "Umit bar"</h2>
-    <div class="support">Привет, я ничего не скажу, просто посмотри наш сайт — может, тебе станет лучше. И этот сайт — маленький уголок, где тебя понимают).</div>
+    <!-- Текст поддержки -->
+  </section>  <section id="stories">
+    <h2>Анонимные истории</h2>
+    <!-- Истории -->
+  </section>  <section id="music">
+    <h2>Музыкальный уголок</h2>
+    <!-- Плейлист -->
+  </section>  <footer>Сайт создан с Амином и понимающим незнакомцем | 2025</footer><button onclick="scrollToTop()" id="scrollTopBtn">⇧</button>
 
-    <h2>Поделись своей историей</h2>
-    <form class="support" onsubmit="event.preventDefault(); sendMessage('story'); this.reset();">
-      <textarea id="storyInput" rows="6" placeholder="Напиши свою историю..."></textarea>
-      <br>
-      <button class="btn" type="submit">Отправить</button>
-    </form>
-
-    <h2>Добавь свою цитату</h2>
-    <form class="support" onsubmit="event.preventDefault(); sendMessage('quote'); this.reset();">
-      <input type="text" id="quoteInput" placeholder="Твоя цитата..." />
-      <br><br>
-      <button class="btn" type="submit">Добавить</button>
-    </form>
-
-    <h2>Советы и ресурсы</h2>
-    <div class="support">
-      - Если тебе тяжело — попробуй поделиться с кем-то.<br>
-      - Прогулка, музыка или просто поговорить с кем-то может помочь.<br>
-      - Ты не обязан быть сильным всегда. Ты имеешь право на слабость.<br>
-      - Если совсем тяжело — напиши нам. Мы рядом.
-    </div>
-
-    <h2>Анонимные сообщения</h2>
-    <div class="support">
-      Скоро здесь появятся анонимные истории от других людей, как ты.<br>
-      Мы работаем над тем, чтобы ты мог не только писать, но и читать чужие мысли.
-    </div>
-
-    <h2>Уголок для музыки</h2>
-    <div class="support">
-      Иногда музыка — лучший друг. Вот несколько треков из моего плейлиста:<br><br>
-      - <a href="https://open.spotify.com/track/2JjZQ0puhcx8wXdGN3GGli?si=MmRAY9S9RaKOQgCLkAMBwQ" target="_blank">Untouchable #1</a><br>
-      - <a href="https://open.spotify.com/track/1GNo1hX3LJP7SeEaVn8kuY?si=5cejHna1QBufCnIdwgSfSA" target="_blank">Музе #2</a><br>
-      - <a href="https://open.spotify.com/track/0TKJAeWKYUxDF7oFzWTJUA?si=kysS3QNPTlOKuvWU6exDdQ" target="_blank">T.G.G. #3</a><br><br>
-      <a href="https://t.me/+tLpuSo2B5NFjZGJi" target="_blank">мой Telegram-канал</a> | 
-      <a href="https://open.spotify.com/playlist/1EkXDvSRWHiE1bMJa8ElR0?si=dZveWt-FRWKxPwd2zSSZeQ&pi=38Pp7MniSO-Jr" target="_blank">мой плейлист в Spotify</a>
-    </div>
-  
-    <h2>Анонимные сообщения и истории</h2>
-    <div id="approvedStories" class="support">Анонимных историй, сообщений нету</div>
-
-    <script>
-      // Загружаем одобренные истории из Firebase
-      db.collection("submissions")
-        .where("type", "==", "story")
-        .where("approved", "==", true)
-        .orderBy("createdAt", "desc")
-        .get()
-        .then((querySnapshot) => {
-          const container = document.getElementById("approvedStories");
-          if (querySnapshot.empty) {
-            container.innerHTML = "Историй пока нет.";
-            return;
-          }
-          container.innerHTML = "";
-          querySnapshot.forEach((doc) => {
-            const div = document.createElement("div");
-            div.className = "quote";
-            div.textContent = doc.data().message;
-            container.appendChild(div);
-          });
-        })
-        .catch((error) => {
-          console.error("Ошибка загрузки историй:", error);
-        });
-    </script>
-
-  </section>
-  <footer>Сайт создан с понимающим незнакомцем | 2025</footer>
-
-  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js"></script>
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyDxUlnP5z7r4UPtASJqoocTI6PBISlFcU0",
-      authDomain: "umitbar-2a7c1.firebaseapp.com",
-      projectId: "umitbar-2a7c1",
-      storageBucket: "umitbar-2a7c1.appspot.com",
-      messagingSenderId: "363649035498",
-      appId: "1:363649035498:web:47da67b0c213e8fce9fb93",
-      measurementId: "G-VFHDK0G5XZ"
-    };
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-    const db = firebase.firestore();
-  </script>
-
-  
-  <script>
-  const botToken = "7842244275:AAFEFr7fwjSeCVnj1FTm9txIhZpkWWHfl_c";
-  const chatId = "2071572237";
-
-  function sendMessage(type) {
-    const story = document.getElementById("storyInput")?.value.trim();
-    const quote = document.getElementById("quoteInput")?.value.trim();
-
-    let message = '';
-    let dataToSave = {};
-
-    if (type === 'story' && story) {
-      message = `История: \n${story}`;
-      dataToSave = {
-        type: 'story',
-        message: story,
-        createdAt: new Date().toISOString()
-      };
-    } else if (type === 'quote' && quote) {
-      message = `Цитата: \n${quote}`;
-      dataToSave = {
-        type: 'quote',
-        message: quote,
-        createdAt: new Date().toISOString()
-      };
+    function scrollToTop() {
+      window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
-    if (message && dataToSave.message) {
-      // Отправка в Telegram
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.ok) {
-            alert("Сообщение отправлено!");
-            // Очищаем поля
-            if (type === 'story') document.getElementById("storyInput").value = '';
-            if (type === 'quote') document.getElementById("quoteInput").value = '';
-          } else {
-            alert("Ошибка при отправке в Telegram.");
-          }
-        })
-        .catch(error => {
-          alert("Ошибка при отправке.");
-          console.error("Ошибка:", error);
-        });
-
-      // Сохраняем в Firebase
-      db.collection("submissions").add(dataToSave)
-        .then(() => {
-          console.log("Успешно сохранено в Firestore.");
-        })
-        .catch((error) => {
-          console.error("Ошибка при сохранении в Firestore:", error);
-        });
+    window.onscroll = function() {
+      const btn = document.getElementById('scrollTopBtn');
+      if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+        btn.style.display = 'block';
+      } else {
+        btn.style.display = 'none';
+      }
     }
-  }
-</script>
-</body>
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script></body>
 </html>
