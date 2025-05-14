@@ -2,8 +2,12 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Umit bar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="UmitBar — анонимная поддержка, мотивация, цитаты и истории. Ты не один. Делись, читай, вдохновляйся." />
+  <meta name="keywords" content="поддержка, мотивация, цитаты, умитбар, ты не один, помощь, подростки, анонимно, истории, советы" />
+  <meta name="author" content="Abom & Amin" />
+  <meta name="robots" content="index, follow" />
+  <title>UmitBar — Ты не один</title>
   <link rel="icon" href="favicon.png" type="image/png">
   <style>
     body {
@@ -137,44 +141,17 @@
     <h2>Уголок для музыки</h2>
     <div class="support">
       Иногда музыка — лучший друг. Вот несколько треков из моего плейлиста:<br><br>
-      - <a href="https://open.spotify.com/track/2JjZQ0puhcx8wXdGN3GGli?si=MmRAY9S9RaKOQgCLkAMBwQ" target="_blank">Untouchable #1</a><br>
-      - <a href="https://open.spotify.com/track/1GNo1hX3LJP7SeEaVn8kuY?si=5cejHna1QBufCnIdwgSfSA" target="_blank">Музе #2</a><br>
-      - <a href="https://open.spotify.com/track/0TKJAeWKYUxDF7oFzWTJUA?si=kysS3QNPTlOKuvWU6exDdQ" target="_blank">T.G.G. #3</a><br><br>
+      - <a href="https://open.spotify.com/track/2JjZQ0puhcx8wXdGN3GGli" target="_blank">Untouchable #1</a><br>
+      - <a href="https://open.spotify.com/track/1GNo1hX3LJP7SeEaVn8kuY" target="_blank">Музе #2</a><br>
+      - <a href="https://open.spotify.com/track/0TKJAeWKYUxDF7oFzWTJUA" target="_blank">T.G.G. #3</a><br><br>
       <a href="https://t.me/+tLpuSo2B5NFjZGJi" target="_blank">мой Telegram-канал</a> | 
-      <a href="https://open.spotify.com/playlist/1EkXDvSRWHiE1bMJa8ElR0?si=dZveWt-FRWKxPwd2zSSZeQ&pi=38Pp7MniSO-Jr" target="_blank">мой плейлист в Spotify</a>
+      <a href="https://open.spotify.com/playlist/1EkXDvSRWHiE1bMJa8ElR0" target="_blank">мой плейлист в Spotify</a>
     </div>
-  
+
     <h2>Анонимные сообщение. Анонимные история</h2>
     <div id="approvedStories" class="support">Анонимных историй, сообщений нету</div>
-
-    <script>
-      // Загружаем одобренные истории из Firebase
-      db.collection("submissions")
-        .where("type", "==", "story")
-        .where("approved", "==", true)
-        .orderBy("createdAt", "desc")
-        .get()
-        .then((querySnapshot) => {
-          const container = document.getElementById("approvedStories");
-          if (querySnapshot.empty) {
-            container.innerHTML = "Историй пока нет.";
-            return;
-          }
-          container.innerHTML = "";
-          querySnapshot.forEach((doc) => {
-            const div = document.createElement("div");
-            div.className = "quote";
-            div.textContent = doc.data().message;
-            container.appendChild(div);
-          });
-        })
-        .catch((error) => {
-          console.error("Ошибка загрузки историй:", error);
-        });
-    </script>
-
   </section>
-  <footer>Сайт создан с понимающим незнакомцем | 2025</footer>
+  <footer>Сайт создан с Abom & Amin | 2025</footer>
 
   <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js"></script>
@@ -194,7 +171,6 @@
     const db = firebase.firestore();
   </script>
 
-  
   <script>
   const botToken = "7842244275:AAFEFr7fwjSeCVnj1FTm9txIhZpkWWHfl_c";
   const chatId = "2071572237";
@@ -223,13 +199,11 @@
     }
 
     if (message && dataToSave.message) {
-      // Отправка в Telegram
       fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
         .then(response => response.json())
         .then(data => {
           if (data.ok) {
             alert("Сообщение отправлено!");
-            // Очищаем поля
             if (type === 'story') document.getElementById("storyInput").value = '';
             if (type === 'quote') document.getElementById("quoteInput").value = '';
           } else {
@@ -241,7 +215,6 @@
           console.error("Ошибка:", error);
         });
 
-      // Сохраняем в Firebase
       db.collection("submissions").add(dataToSave)
         .then(() => {
           console.log("Успешно сохранено в Firestore.");
@@ -251,6 +224,29 @@
         });
     }
   }
-</script>
+
+  db.collection("submissions")
+    .where("type", "==", "story")
+    .where("approved", "==", true)
+    .orderBy("createdAt", "desc")
+    .get()
+    .then((querySnapshot) => {
+      const container = document.getElementById("approvedStories");
+      if (querySnapshot.empty) {
+        container.innerHTML = "Историй пока нет.";
+        return;
+      }
+      container.innerHTML = "";
+      querySnapshot.forEach((doc) => {
+        const div = document.createElement("div");
+        div.className = "quote";
+        div.textContent = doc.data().message;
+        container.appendChild(div);
+      });
+    })
+    .catch((error) => {
+      console.error("Ошибка загрузки историй:", error);
+    });
+  </script>
 </body>
 </html>
