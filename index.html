@@ -24,16 +24,14 @@
     a { color: #4a90e2; text-decoration: none; }
     a:hover, a:focus { text-decoration: underline; }
     header {
-  background-color: #4a90e2;
-  color: white;
-  padding: 30px 20px;
-  text-align: center;
-  flex-direction: column;
-  display: flex;
-  align-items: center;
-}
+      background-color: #4a90e2;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      flex-direction: column;
+      display: flex;
+      align-items: center;
     }
-    header > div { max-width: 75%; }
     header h1 { margin: 0; font-size: 2.2rem; line-height: 1.1; }
     header p { margin-top: 5px; font-size: 1rem; opacity: 0.85; }
     .personal-corner {
@@ -48,6 +46,7 @@
       white-space: nowrap;
       font-size: 1rem;
       user-select: none;
+      margin-top: 15px;
     }
     .personal-corner:hover,
     .personal-corner:focus {
@@ -55,13 +54,8 @@
       color: #000;
       outline: none;
     }
-    main {
-      padding: 40px 20px;
-      max-width: 700px;
-      margin: 0 auto;
+    section h2 {
       text-align: center;
-    }
-    main h2 {
       font-size: 2rem;
       color: #4a90e2;
       margin-bottom: 25px;
@@ -135,14 +129,8 @@
       background-color: #f4f1ea;
       margin-top: 60px;
     }
+
     @media (max-width: 600px) {
-      header {
-        padding: 20px 15px;
-      }
-      header > div {
-        max-width: 100%;
-        margin-bottom: 10px;
-      }
       header h1 {
         font-size: 1.8rem;
       }
@@ -150,45 +138,28 @@
         font-size: 0.9rem;
       }
       .personal-corner {
-        padding: 8px 14px;
         font-size: 0.9rem;
+        padding: 8px 14px;
       }
-      main {
-        padding: 25px 15px;
+      section h2 {
+        font-size: 1.3rem;
       }
-      main h2 {
-        font-size: 1.6rem;
-        margin-bottom: 20px;
-      }
-      .quote,
-      .support {
-        max-width: 100%;
-        font-size: 1rem;
+      .quote, .support {
+        font-size: 0.95rem;
         padding: 16px;
+        max-width: 100%;
       }
       form.support textarea,
       form.support input[type="text"] {
         font-size: 0.95rem;
-        padding: 10px;
-      }
-      form.support button.btn {
-        font-size: 1rem;
-        padding: 10px;
-      }
-      footer {
-        padding: 20px 10px;
-        font-size: 0.85rem;
-        margin-top: 40px;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <div>
-      <h1>Umit bar</h1>
-      <p>Сайт поддержки для подростков таких же как я, и для всех, кто нуждается в словах тепла</p>
-    </div>
+    <h1>Umit bar</h1>
+    <p>Сайт поддержки для подростков таких же как я, и для всех, кто нуждается в словах тепла</p>
     <a href="login.html" class="personal-corner">Личный уголок</a>
   </header>
 
@@ -202,8 +173,8 @@
     <div class="quote">Даже если ты не видишь свет — он есть.</div>
     <div class="quote">Ты не один. Мы рядом.</div>
     <div class="quote">Не бойся просить помощи. Ты не один.</div>
-
-        <h2>Раздел "Umit bar"</h2>
+    
+    <h2>Раздел "Umit bar"</h2>
     <div class="support">Привет, я ничего не скажу, просто посмотри наш сайт — может, тебе станет лучше. И этот сайт — маленький уголок, где тебя понимают).</div>
 
     <h2>Поделись своей историей</h2>
@@ -247,7 +218,7 @@
   </section>
 
   <footer>Сайт создан с Abom & Amin | 2025</footer>
-
+  
   <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js"></script>
@@ -265,6 +236,7 @@
     firebase.analytics();
     const db = firebase.firestore();
   </script>
+
   <script>
     const botToken = "7842244275:AAFEFr7fwjSeCVnj1FTm9txIhZpkWWHfl_c";
     const chatId = "2071572237";
