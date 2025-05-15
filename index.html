@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="description" content="UmitBar — анонимная поддержка, мотивация, цитаты и истории. Ты не один. Делись, читай, вдохновляйся." />
   <meta name="keywords" content="поддержка, мотивация, цитаты, умитбар, ты не один, помощь, подростки, анонимно, истории, советы" />
   <meta name="author" content="Abom & Amin" />
@@ -10,13 +10,19 @@
   <title>UmitBar — Ты не один</title>
   <link rel="icon" href="favicon.png" type="image/png" />
   <style>
+    *, *::before, *::after { box-sizing: border-box; }
     body {
-      margin: 0;
-      padding: 0;
-      font-family: sans-serif;
+      margin: 0; padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
       background: #eef5ff;
       color: #333;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+    a { color: #4a90e2; text-decoration: none; }
+    a:hover, a:focus { text-decoration: underline; }
     header {
       background-color: #4a90e2;
       color: white;
@@ -26,35 +32,51 @@
       justify-content: space-between;
       flex-wrap: wrap;
     }
-    header > div {
-      max-width: 80%;
+    header > div { max-width: 75%; }
+    header h1 { margin: 0; font-size: 2.2rem; line-height: 1.1; }
+    header p { margin-top: 5px; font-size: 1rem; opacity: 0.85; }
+    .personal-corner {
+      background-color: #f4e3d7;
+      color: #333;
+      padding: 10px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 2px solid #d7c4b6;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      font-size: 1rem;
+      user-select: none;
     }
-    header h1 {
-      margin: 0;
+    .personal-corner:hover,
+    .personal-corner:focus {
+      background-color: #e6d5c5;
+      color: #000;
+      outline: none;
     }
-    section {
-      padding: 20px;
+    main {
+      padding: 40px 20px;
+      max-width: 700px;
+      margin: 0 auto;
       text-align: center;
     }
-    h2 {
+    main h2 {
+      font-size: 2rem;
       color: #4a90e2;
-      margin-top: 30px;
+      margin-bottom: 25px;
     }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .quote, .support {
-      background-color: white;
+    .quote,
+    .support {
+      background-color: #fff;
       margin: 15px auto;
       padding: 20px;
       border-radius: 16px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
       max-width: 420px;
-      font-size: 17px;
+      font-size: 1.1rem;
       line-height: 1.6;
-      opacity: 0;
       animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
     }
     .quote:nth-of-type(1) { animation-delay: 0.2s; }
     .quote:nth-of-type(2) { animation-delay: 0.4s; }
@@ -64,76 +86,97 @@
     .quote:nth-of-type(6) { animation-delay: 1.2s; }
     .quote:nth-of-type(7) { animation-delay: 1.4s; }
     .quote:nth-of-type(8) { animation-delay: 1.6s; }
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 20px;
-      background-color: #4a90e2;
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    form.support {
+      margin: 25px auto;
+      max-width: 420px;
+      text-align: left;
+    }
+    form.support textarea,
+    form.support input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      box-sizing: border-box;
+      resize: vertical;
+      font-family: inherit;
+    }
+    form.support button.btn {
+      margin-top: 12px;
+      width: 100%;
+      padding: 12px;
+      font-size: 1.1rem;
+      font-weight: 700;
       color: white;
+      background-color: #4a90e2;
       border: none;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 16px;
+      border-radius: 12px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    form.support button.btn:hover,
+    form.support button.btn:focus {
+      background-color: #357abd;
+      outline: none;
     }
     footer {
       text-align: center;
-      padding: 15px;
-      font-size: 14px;
+      padding: 25px 15px;
+      font-size: 0.9rem;
       color: #777;
-      margin-top: 40px;
-    }
-    textarea, input[type="text"] {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-    .personal-corner {
-      background-color: #f4e3d7;
-      color: #333;
-      padding: 10px 18px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: bold;
-      border: 2px solid #d7c4b6;
-      transition: all 0.3s ease;
-      white-space: nowrap;
-    }
-    .personal-corner:hover {
-      background-color: #e6d5c5;
-      color: #000;
+      background-color: #f4f1ea;
+      margin-top: 60px;
     }
     @media (max-width: 600px) {
       header {
-        padding: 20px 10px;
+        padding: 20px 15px;
       }
       header > div {
         max-width: 100%;
         margin-bottom: 10px;
       }
+      header h1 {
+        font-size: 1.8rem;
+      }
+      header p {
+        font-size: 0.9rem;
+      }
       .personal-corner {
         padding: 8px 14px;
-        font-size: 14px;
+        font-size: 0.9rem;
       }
-      h1 {
-        font-size: 24px;
+      main {
+        padding: 25px 15px;
       }
-      section {
-        padding: 15px 10px;
+      main h2 {
+        font-size: 1.6rem;
+        margin-bottom: 20px;
       }
-      .quote, .support {
-        font-size: 16px;
-        padding: 16px;
+      .quote,
+      .support {
         max-width: 100%;
+        font-size: 1rem;
+        padding: 16px;
       }
-      .btn {
-        width: 100%;
-        font-size: 15px;
+      form.support textarea,
+      form.support input[type="text"] {
+        font-size: 0.95rem;
+        padding: 10px;
       }
-      textarea, input[type="text"] {
-        font-size: 15px;
+      form.support button.btn {
+        font-size: 1rem;
+        padding: 10px;
+      }
+      footer {
+        padding: 20px 10px;
+        font-size: 0.85rem;
+        margin-top: 40px;
       }
     }
   </style>
@@ -146,6 +189,7 @@
     </div>
     <a href="login.html" class="personal-corner">Личный уголок</a>
   </header>
+
   <section>
     <h2>Слова поддержки и тепла</h2>
     <div class="quote">Даже если сейчас трудно — ты обязательно справишься.</div>
@@ -157,20 +201,18 @@
     <div class="quote">Ты не один. Мы рядом.</div>
     <div class="quote">Не бойся просить помощи. Ты не один.</div>
 
-    <h2>Раздел "Umit bar"</h2>
+        <h2>Раздел "Umit bar"</h2>
     <div class="support">Привет, я ничего не скажу, просто посмотри наш сайт — может, тебе станет лучше. И этот сайт — маленький уголок, где тебя понимают).</div>
 
     <h2>Поделись своей историей</h2>
     <form class="support" onsubmit="event.preventDefault(); sendMessage('story'); this.reset();">
       <textarea id="storyInput" rows="6" placeholder="Напиши свою историю..."></textarea>
-      <br />
       <button class="btn" type="submit">Отправить</button>
     </form>
 
     <h2>Добавь свою цитату</h2>
     <form class="support" onsubmit="event.preventDefault(); sendMessage('quote'); this.reset();">
       <input type="text" id="quoteInput" placeholder="Твоя цитата..." />
-      <br /><br />
       <button class="btn" type="submit">Добавить</button>
     </form>
 
@@ -191,16 +233,17 @@
     <h2>Уголок для музыки</h2>
     <div class="support">
       Иногда музыка — лучший друг. Вот несколько треков из моего плейлиста:<br /><br />
-      - <a href="https://open.spotify.com/track/2JjZQ0puhcx8wXdGN3GGli" target="_blank">Untouchable #1</a><br />
-      - <a href="https://open.spotify.com/track/1GNo1hX3LJP7SeEaVn8kuY" target="_blank">Музе #2</a><br />
-      - <a href="https://open.spotify.com/track/0TKJAeWKYUxDF7oFzWTJUA" target="_blank">T.G.G. #3</a><br /><br />
-      <a href="https://t.me/+tLpuSo2B5NFjZGJi" target="_blank">мой Telegram-канал</a> |
-      <a href="https://open.spotify.com/playlist/1EkXDvSRWHiE1bMJa8ElR0" target="_blank">мой плейлист в Spotify</a>
+      - <a href="https://open.spotify.com/track/2JjZQ0puhcx8wXdGN3GGli" target="_blank" rel="noopener">Untouchable #1</a><br />
+      - <a href="https://open.spotify.com/track/1GNo1hX3LJP7SeEaVn8kuY" target="_blank" rel="noopener">Музе #2</a><br />
+      - <a href="https://open.spotify.com/track/0TKJAeWKYUxDF7oFzWTJUA" target="_blank" rel="noopener">T.G.G. #3</a><br /><br />
+      <a href="https://t.me/+tLpuSo2B5NFjZGJi" target="_blank" rel="noopener">мой Telegram-канал</a> |
+      <a href="https://open.spotify.com/playlist/1EkXDvSRWHiE1bMJa8ElR0" target="_blank" rel="noopener">мой плейлист в Spotify</a>
     </div>
 
     <h2>Анонимные сообщение. Анонимные история</h2>
     <div id="approvedStories" class="support">Анонимных историй, сообщений нету</div>
   </section>
+
   <footer>Сайт создан с Abom & Amin | 2025</footer>
 
   <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js"></script>
@@ -220,7 +263,6 @@
     firebase.analytics();
     const db = firebase.firestore();
   </script>
-
   <script>
     const botToken = "7842244275:AAFEFr7fwjSeCVnj1FTm9txIhZpkWWHfl_c";
     const chatId = "2071572237";
