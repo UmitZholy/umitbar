@@ -136,6 +136,21 @@
         padding: 20px;
       }
     }
+  
+    .sound-section {
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+      margin-top: 20px;
+    }
+    .sound-section select, .sound-section button {
+      margin: 5px;
+      padding: 6px;
+      font-size: 1rem;
+      border-radius: 6px;
+    }
+
   </style>
 </head>
 <body>
@@ -157,6 +172,44 @@
     <button id="clearNotes">🗑 Очистить всё</button>
     <button id="logout">🚪 Выйти</button>
   </div>
+  <div class="sidebar">
+    <h2>Твои звуки</h2>
+    <div class="sound-section">
+      <label>🌧 Дождь:
+        <select id="rainSelect">
+          <option value="rain1.mp3">Дождь #1</option>
+          <option value="rain2.mp3">Дождь #2</option>
+          <option value="rain3.mp3">Дождь #3</option>
+          <option value="rain4.mp3">Дождь #4</option>
+        </select>
+        <button onclick="playSound('rain')">▶</button>
+        <button onclick="pauseSound('rain')">⏸</button>
+      </label>
+      <br><br>
+      <label>🔥 Костёр:
+        <select id="fireSelect">
+          <option value="fire1.mp3">Костёр #1</option>
+          <option value="fire2.mp3">Костёр #2</option>
+          <option value="fire3.mp3">Костёр #3</option>
+          <option value="fire4.mp3">Костёр #4</option>
+        </select>
+        <button onclick="playSound('fire')">▶</button>
+        <button onclick="pauseSound('fire')">⏸</button>
+      </label>
+      <br><br>
+      <label>🌊 Море:
+        <select id="seaSelect">
+          <option value="sea1.mp3">Море #1</option>
+          <option value="sea2.mp3">Море #2</option>
+          <option value="sea3.mp3">Море #3</option>
+          <option value="sea4.mp3">Море #4</option>
+        </select>
+        <button onclick="playSound('sea')">▶</button>
+        <button onclick="pauseSound('sea')">⏸</button>
+      </label>
+    </div>
+  </div>
+
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
@@ -277,6 +330,35 @@
 
     window.onload = loadNotes;
   </script>
+
+<script>
+
+    const audioPlayers = {
+      rain: null,
+      fire: null,
+      sea: null
+    };
+
+    function playSound(type) {
+      const select = document.getElementById(type + 'Select');
+      const file = select.value;
+      if (audioPlayers[type]) {
+        audioPlayers[type].pause();
+      }
+      const audio = new Audio('sounds/' + file);
+      audio.loop = true;
+      audio.volume = 0.5;
+      audio.play();
+      audioPlayers[type] = audio;
+    }
+
+    function pauseSound(type) {
+      if (audioPlayers[type]) {
+        audioPlayers[type].pause();
+      }
+    }
+
+</script>
 
 </body>
 </html>
