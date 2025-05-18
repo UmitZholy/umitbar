@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Личный уголо</title>
+  <title>Личный уголок</title>
   <style>
     * {
       box-sizing: border-box;
@@ -147,6 +147,16 @@
     #logout:hover {
       background-color: #cc8400;
     }
+    .instagram-link {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+    }
+    .instagram-link a {
+      color: #4a90e2;
+      text-decoration: none;
+    }
     @media (min-width: 768px) {
       .main {
         width: 66%;
@@ -167,6 +177,9 @@
       </p>
       <div class="video-container">
         <iframe src="https://www.youtube.com/embed/ТВОЙ_КОД" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="instagram-link">
+        Есть идея, как улучшить сайт? Напиши нам в Instagram: <a href="https://instagram.com/um1tbar" target="_blank">@um1tbar</a>
       </div>
     </div><div class="sidebar">
   <h2>Твои заметки</h2>
@@ -223,7 +236,11 @@
             const btn = document.createElement('button');
             btn.textContent = '×';
             btn.title = 'Удалить заметку';
-            btn.onclick = () => deleteNote(idx);
+            btn.onclick = () => {
+              if (confirm("Вы точно хотите удалить эту заметку?")) {
+                deleteNote(idx);
+              }
+            };
             div.appendChild(btn);
             notesList.appendChild(div);
           });
