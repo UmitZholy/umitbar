@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!DOCTYPE html><html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -136,25 +135,9 @@
         padding: 20px;
       }
     }
-  
-    .sound-section {
-      background: #ffffff;
-      padding: 16px;
-      border-radius: 12px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.05);
-      margin-top: 20px;
-    }
-    .sound-section select, .sound-section button {
-      margin: 5px;
-      padding: 6px;
-      font-size: 1rem;
-      border-radius: 6px;
-    }
-
   </style>
 </head>
 <body>
-
   <div class="main">
     <h1>Личный уголок 🌤</h1>
     <div class="welcome" id="welcomeMessage"></div>
@@ -162,56 +145,20 @@
       Добро пожаловать. Здесь можно просто быть.<br><br>
       Иногда, чтобы двигаться дальше, достаточно остановиться на мгновение, вдохнуть глубже и напомнить себе, кто ты есть.
     </p>
-  </div>
-
-  <div class="sidebar">
+    <div style="margin-top: 30px; width: 100%; max-width: 640px; border-radius: 12px; overflow: hidden; box-shadow: 0 0 12px rgba(0,0,0,0.1);">
+      <video autoplay muted loop playsinline style="width: 100%; border-radius: 12px;">
+        <source src="https://cdn.pixabay.com/vimeo/778116857/ocean-139020.mp4?width=1280&hash=c3bbffabb2eb4e9f871b43e8a7a26861cf6a489e" type="video/mp4">
+        Твой браузер не поддерживает видео.
+      </video>
+    </div>
+  </div>  <div class="sidebar">
     <h2>Твои заметки</h2>
     <textarea id="noteInput" placeholder="Напиши новую заметку..."></textarea>
     <button id="addNote">➕ Добавить</button>
     <div id="notesList"></div>
     <button id="clearNotes">🗑 Очистить всё</button>
     <button id="logout">🚪 Выйти</button>
-  </div>
-  <div class="sidebar">
-    <h2>Твои звуки</h2>
-    <div class="sound-section">
-      <label>🌧 Дождь:
-        <select id="rainSelect">
-          <option value="rain1.mp3">Дождь #1</option>
-          <option value="rain2.mp3">Дождь #2</option>
-          <option value="rain3.mp3">Дождь #3</option>
-          <option value="rain4.mp3">Дождь #4</option>
-        </select>
-        <button onclick="playSound('rain')">▶</button>
-        <button onclick="pauseSound('rain')">⏸</button>
-      </label>
-      <br><br>
-      <label>🔥 Костёр:
-        <select id="fireSelect">
-          <option value="fire1.mp3">Костёр #1</option>
-          <option value="fire2.mp3">Костёр #2</option>
-          <option value="fire3.mp3">Костёр #3</option>
-          <option value="fire4.mp3">Костёр #4</option>
-        </select>
-        <button onclick="playSound('fire')">▶</button>
-        <button onclick="pauseSound('fire')">⏸</button>
-      </label>
-      <br><br>
-      <label>🌊 Море:
-        <select id="seaSelect">
-          <option value="sea1.mp3">Море #1</option>
-          <option value="sea2.mp3">Море #2</option>
-          <option value="sea3.mp3">Море #3</option>
-          <option value="sea4.mp3">Море #4</option>
-        </select>
-        <button onclick="playSound('sea')">▶</button>
-        <button onclick="pauseSound('sea')">⏸</button>
-      </label>
-    </div>
-  </div>
-
-
-  <script type="module">
+  </div>  <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
     import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
@@ -304,7 +251,7 @@
         await updateDoc(userDocRef, { notes });
         loadNotes();
       } catch (e) {
-        console.error("Ошибка удаления заметки:", e);
+        console.error("Ошибка удаления заметок:", e);
       }
     }
 
@@ -329,36 +276,5 @@
     logoutBtn.addEventListener('click', logout);
 
     window.onload = loadNotes;
-  </script>
-
-<script>
-
-    const audioPlayers = {
-      rain: null,
-      fire: null,
-      sea: null
-    };
-
-    function playSound(type) {
-      const select = document.getElementById(type + 'Select');
-      const file = select.value;
-      if (audioPlayers[type]) {
-        audioPlayers[type].pause();
-      }
-      const audio = new Audio('https://umitzholy.github.io/umitbar/sounds/' + file);
-      audio.loop = true;
-      audio.volume = 0.5;
-      audio.play();
-      audioPlayers[type] = audio;
-    }
-
-    function pauseSound(type) {
-      if (audioPlayers[type]) {
-        audioPlayers[type].pause();
-      }
-    }
-
-</script>
-
-</body>
+  </script></body>
 </html>
