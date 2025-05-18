@@ -1,23 +1,23 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!DOCTYPE html><html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Личный уголок</title>
   <style>
     html, body {
-      margin: 0;
-      padding: 0;
-      background-color: #f2f2f2;
-      font-family: 'Segoe UI', sans-serif;
-      color: #333;
-      display: flex;
-      flex-direction: row;
-      min-height: 100vh;
-      overflow-x: hidden;
-      width: 100%;
-      box-sizing: border-box;
-    }
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
     .main {
       flex: 2;
       display: flex;
@@ -45,22 +45,6 @@
       text-align: center;
       margin-top: 0;
       line-height: 1.6;
-    }
-    .video-container {
-      position: relative;
-      width: 100%;
-      max-width: 600px;
-      padding-top: 56.25%;
-      margin-top: 30px;
-    }
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
     }
     .sidebar {
       flex: 1;
@@ -141,6 +125,22 @@
     }
     #logout:hover {
       background-color: #cc8400;
+    }
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      padding-top: 56.25%;
+      margin-top: 30px;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
     }
     @media (max-width: 768px) {
       body {
