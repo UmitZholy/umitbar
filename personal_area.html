@@ -51,22 +51,6 @@
       margin-top: 0;
       line-height: 1.6;
     }
-    .video-container {
-      position: relative;
-      width: 100%;
-      max-width: 600px;
-      padding-top: 56.25%;
-      margin-top: 30px;
-    }
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-    }
     .sidebar {
       flex: 1;
       padding: 30px;
@@ -148,7 +132,8 @@
       background-color: #cc8400;
     }
     .instagram-link {
-      margin-top: 30px;
+      margin-top: auto;
+      padding-top: 30px;
       text-align: center;
       font-size: 14px;
       color: #666;
@@ -156,6 +141,18 @@
     .instagram-link a {
       color: #4a90e2;
       text-decoration: none;
+    }
+    #cozyMode {
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: #a5c4d4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     @media (min-width: 768px) {
       .main {
@@ -175,22 +172,21 @@
       <p>Добро пожаловать. Здесь можно просто быть.<br><br>
         Иногда, чтобы двигаться дальше, достаточно остановиться на мгновение, вдохнуть глубже и напомнить себе, кто ты есть.
       </p>
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/2LkVUS6RbyU" frameborder="0" allowfullscreen></iframe>
-      </div>
+      <button id="cozyMode">🌿 Погрузи меня в уют</button>
+    </div>
+    <div class="sidebar">
+      <h2>Твои заметки</h2>
+      <textarea id="noteInput" placeholder="Напиши новую заметку..."></textarea>
+      <button id="addNote">➕ Добавить</button>
+      <div id="notesList"></div>
+      <button id="clearNotes">🗑 Очистить всё</button>
+      <button id="logout">🚪 Выйти</button>
       <div class="instagram-link">
-        Есть идей, мысли как улучшить сайт? Напишите нам в Instagram: <a href="https://instagram.com/um1tbar" target="_blank">@um1tbar</a>
+        Есть идеи, мысли как улучшить сайт? Напишите нам в Instagram: <a href="https://instagram.com/um1tbar" target="_blank">@um1tbar</a>
       </div>
-    </div><div class="sidebar">
-  <h2>Твои заметки</h2>
-  <textarea id="noteInput" placeholder="Напиши новую заметку..."></textarea>
-  <button id="addNote">➕ Добавить</button>
-  <div id="notesList"></div>
-  <button id="clearNotes">🗑 Очистить всё</button>
-  <button id="logout">🚪 Выйти</button>
-</div>
-
-  </div>  <script type="module">
+    </div>
+  </div>
+  <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
     import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
@@ -212,6 +208,7 @@
     const notesList = document.getElementById('notesList');
     const clearBtn = document.getElementById('clearNotes');
     const logoutBtn = document.getElementById('logout');
+    const cozyModeBtn = document.getElementById('cozyMode');
 
     let currentUser = localStorage.getItem('currentUser');
     if (!currentUser) {
@@ -307,10 +304,76 @@
       window.location.href = 'index.html';
     }
 
+    cozyModeBtn.addEventListener('click', function() {
+      // Изменение цветовой схемы
+      document.body.style.backgroundColor = '#f5efe6';
+      document.querySelector('.main').style.backgroundColor = '#f8f4ea';
+      document.querySelector('.sidebar').style.backgroundColor = '#f0e9dd';
+      document.querySelector('.sidebar').style.borderLeft = '2px solid #e0d6c2';
+      
+      // Добавление уютных элементов
+      const cozyElements = `
+          <style>
+              .cozy-effect {
+                  position: fixed;
+                  pointer-events: none;
+                  z-index: 1000;
+              }
+              .leaf {
+                  position: absolute;
+                  font-size: 24px;
+                  animation: float 10s linear infinite;
+              }
+              @keyframes float {
+                  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+                  10% { opacity: 1; }
+                  90% { opacity: 1; }
+                  100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+              }
+          </style>
+      `;
+      document.head.insertAdjacentHTML('beforeend', cozyElements);
+      
+      // Создание падающих листьев
+      for (let i = 0; i < 15; i++) {
+          setTimeout(() => {
+              const leaf = document.createElement('div');
+              leaf.className = 'cozy-effect leaf';
+              leaf.innerHTML = '🍂';
+              leaf.style.left = Math.random() * 100 + 'vw';
+              leaf.style.animationDuration = (5 + Math.random() * 10) + 's';
+              leaf.style.animationDelay = Math.random() * 5 + 's';
+              document.body.appendChild(leaf);
+              
+              // Удаление листа после анимации
+              setTimeout(() => {
+                  leaf.remove();
+              }, 15000);
+          }, i * 300);
+      }
+      
+      // Изменение текста кнопки
+      this.textContent = '🌙 Уют активирован';
+      this.style.backgroundColor = '#c9b8a0';
+      this.style.boxShadow = 'none';
+      
+      // Восстановление исходного состояния через 15 секунд
+      setTimeout(() => {
+          document.body.style.backgroundColor = '#f2f2f2';
+          document.querySelector('.main').style.backgroundColor = '#ffffff';
+          document.querySelector('.sidebar').style.backgroundColor = '#f9f9f9';
+          document.querySelector('.sidebar').style.borderLeft = '2px solid #ddd';
+          this.textContent = '🌿 Погрузи меня в уют';
+          this.style.backgroundColor = '#a5c4d4';
+          this.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+      }, 15000);
+    });
+
     addNoteBtn.addEventListener('click', addNote);
     clearBtn.addEventListener('click', clearAllNotes);
     logoutBtn.addEventListener('click', logout);
 
     window.onload = loadNotes;
-  </script></body>
+  </script>
+</body>
 </html>
