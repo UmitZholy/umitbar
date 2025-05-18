@@ -27,11 +27,13 @@
       font-size: 2.4em;
       color: #2b2d42;
       margin: 0;
+      text-align: center;
     }
     .welcome {
       font-size: 1.2em;
       margin-bottom: 30px;
       color: #555;
+      text-align: center;
     }
     .main p {
       font-size: 18px;
@@ -119,6 +121,22 @@
     #logout:hover {
       background-color: #cc8400;
     }
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      padding-top: 56.25%; /* 16:9 ratio */
+      margin-top: 30px;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    }
     @media (max-width: 768px) {
       body {
         flex-direction: column;
@@ -134,6 +152,10 @@
       .sidebar {
         padding: 20px;
       }
+      .main h1, .main p, .welcome {
+        font-size: 16px;
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -144,13 +166,11 @@
     <p>
       Добро пожаловать. Здесь можно просто быть.<br><br>
       Иногда, чтобы двигаться дальше, достаточно остановиться на мгновение, вдохнуть глубже и напомнить себе, кто ты есть.
-    </p>
-    <div style="margin-top: 30px; width: 100%; max-width: 640px; border-radius: 12px; overflow: hidden; box-shadow: 0 0 12px rgba(0,0,0,0.1);">
-      <video autoplay muted loop playsinline style="width: 100%; border-radius: 12px;">
-        <source src="https://cdn.pixabay.com/vimeo/778116857/ocean-139020.mp4?width=1280&hash=c3bbffabb2eb4e9f871b43e8a7a26861cf6a489e" type="video/mp4">
-        Твой браузер не поддерживает видео.
-      </video>
-    </div>
+    </p><!-- Место для видео YouTube -->
+<div class="video-container">
+  <iframe src="https://youtu.be/t-_b9eBwjLY?si=aEqOhSwNCVGcmzZO" frameborder="0" allowfullscreen></iframe>
+</div>
+
   </div>  <div class="sidebar">
     <h2>Твои заметки</h2>
     <textarea id="noteInput" placeholder="Напиши новую заметку..."></textarea>
