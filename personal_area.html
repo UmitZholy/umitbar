@@ -1,10 +1,11 @@
-<!DOCTYPE html><html lang="ru">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Личный уголок</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       background-color: #f2f2f2;
@@ -13,6 +14,9 @@
       display: flex;
       flex-direction: row;
       min-height: 100vh;
+      overflow-x: hidden;
+      width: 100%;
+      box-sizing: border-box;
     }
     .main {
       flex: 2;
@@ -42,6 +46,22 @@
       margin-top: 0;
       line-height: 1.6;
     }
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      padding-top: 56.25%;
+      margin-top: 30px;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    }
     .sidebar {
       flex: 1;
       padding: 30px;
@@ -62,6 +82,7 @@
       border-radius: 8px;
       border: 1px solid #ccc;
       font-size: 15px;
+      box-sizing: border-box;
     }
     #addNote {
       padding: 10px;
@@ -121,22 +142,6 @@
     #logout:hover {
       background-color: #cc8400;
     }
-    .video-container {
-      position: relative;
-      width: 100%;
-      max-width: 600px;
-      padding-top: 56.25%; /* 16:9 ratio */
-      margin-top: 30px;
-    }
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-    }
     @media (max-width: 768px) {
       body {
         flex-direction: column;
@@ -166,19 +171,24 @@
     <p>
       Добро пожаловать. Здесь можно просто быть.<br><br>
       Иногда, чтобы двигаться дальше, достаточно остановиться на мгновение, вдохнуть глубже и напомнить себе, кто ты есть.
-    </p><!-- Место для видео YouTube -->
-<div class="video-container">
-  <iframe src="https://youtu.be/t-_b9eBwjLY?si=aEqOhSwNCVGcmzZO" frameborder="0" allowfullscreen></iframe>
-</div>
+    </p>
 
-  </div>  <div class="sidebar">
+    <!-- ВСТАВЬ СЮДА YouTube embed-ссылку -->
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/2LkVUS6RbyU" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="sidebar">
     <h2>Твои заметки</h2>
     <textarea id="noteInput" placeholder="Напиши новую заметку..."></textarea>
     <button id="addNote">➕ Добавить</button>
     <div id="notesList"></div>
     <button id="clearNotes">🗑 Очистить всё</button>
     <button id="logout">🚪 Выйти</button>
-  </div>  <script type="module">
+  </div>
+
+  <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
     import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
@@ -296,5 +306,6 @@
     logoutBtn.addEventListener('click', logout);
 
     window.onload = loadNotes;
-  </script></body>
+  </script>
+</body>
 </html>
