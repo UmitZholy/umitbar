@@ -155,7 +155,6 @@
       transition: all 0.3s ease;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-    /* Новые стили для достижений */
     .achievements-container {
       margin-top: 15px;
       max-height: 200px;
@@ -193,7 +192,6 @@
       cursor: pointer;
       margin-bottom: 15px;
     }
-    /* Стили для трекера настроения */
     .mood-tracker {
       margin: 25px 0;
       padding: 15px;
@@ -226,22 +224,34 @@
       background-color: white;
       border-radius: 8px;
       min-height: 50px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 5px;
     }
     .mood-day {
-      display: inline-block;
-      margin: 5px;
-      font-size: 18px;
-      opacity: 0.8;
-      cursor: pointer;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 10px;
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      animation: fadeIn 0.3s;
     }
-    .mood-date {
-      font-size: 12px;
+    .mood-details {
+      flex-grow: 1;
+      margin-left: 10px;
+    }
+    .mood-reason {
+      margin: 5px 0 0;
+      font-size: 14px;
       color: #666;
-      display: block;
+      text-align: left;
+    }
+    .delete-mood-entry {
+      background: none;
+      border: none;
+      color: #ff6666;
+      cursor: pointer;
+      font-weight: bold;
+      padding: 0 5px;
     }
     .mood-question {
       margin-top: 15px;
@@ -270,7 +280,6 @@
     .hidden {
       display: none;
     }
-    /* Стили для советов */
     .mood-advice {
       margin-top: 10px;
       padding: 10px;
@@ -285,19 +294,6 @@
       background-color: #fce4ec;
       border-left: 3px solid #e91e63;
     }
-    .advice-calm {
-      background-color: #e3f2fd;
-      border-left: 3px solid #3498db;
-    }
-    .advice-angry {
-      background-color: #ffebee;
-      border-left: 3px solid #f44336;
-    }
-    .advice-neutral {
-      background-color: #f5f5f5;
-      border-left: 3px solid #9e9e9e;
-    }
-    /* Стили для уютного режима */
     .cozy-effect {
       position: fixed;
       pointer-events: none;
@@ -333,9 +329,8 @@
         Иногда, чтобы двигаться дальше, достаточно остановиться на мгновение, вдохнуть глубже и напомнить себе, кто ты есть.
       </p>
       
-      <!-- Трекер настроения -->
       <div class="mood-tracker">
-        <h3> Какое у тебя настроение сегодня?</h3>
+        <h3>🌈 Какое у тебя настроение сегодня?</h3>
         <div class="mood-options">
           <button data-mood="happy" title="Отлично!">😊</button>
           <button data-mood="calm" title="Спокойно">😌</button>
@@ -359,7 +354,6 @@
       <div id="notesList"></div>
       <button id="clearNotes">🗑 Очистить всё</button>
       
-      <!-- Дневник достижений -->
       <h2>📝 Мой дневник побед</h2>
       <textarea id="achievementInput" placeholder="Что хорошего произошло сегодня? Даже мелочь имеет значение!"></textarea>
       <button id="addAchievement">✨ Зафиксировать победу</button>
@@ -387,378 +381,216 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const welcomeMessage = document.getElementById('welcomeMessage');
-    const noteInput = document.getElementById('noteInput');
-    const addNoteBtn = document.getElementById('addNote');
-    const notesList = document.getElementById('notesList');
-    const clearBtn = document.getElementById('clearNotes');
-    const logoutBtn = document.getElementById('logout');
-    const cozyModeBtn = document.getElementById('cozyMode');
-    const achievementInput = document.getElementById('achievementInput');
-    const addAchievementBtn = document.getElementById('addAchievement');
-    const achievementsList = document.getElementById('achievementsList');
-    const moodTracker = document.querySelector('.mood-options');
-    const moodQuestion = document.getElementById('moodQuestion');
-    const moodReason = document.getElementById('moodReason');
-    const saveMoodReasonBtn = document.getElementById('saveMoodReason');
-    const moodHistory = document.getElementById('moodHistory');
+    const elements = {
+      welcomeMessage: document.getElementById('welcomeMessage'),
+      noteInput: document.getElementById('noteInput'),
+      addNote: document.getElementById('addNote'),
+      notesList: document.getElementById('notesList'),
+      clearNotes: document.getElementById('clearNotes'),
+      logout: document.getElementById('logout'),
+      cozyMode: document.getElementById('cozyMode'),
+      achievementInput: document.getElementById('achievementInput'),
+      addAchievement: document.getElementById('addAchievement'),
+      achievementsList: document.getElementById('achievementsList'),
+      moodTracker: document.querySelector('.mood-options'),
+      moodQuestion: document.getElementById('moodQuestion'),
+      moodReason: document.getElementById('moodReason'),
+      saveMoodReason: document.getElementById('saveMoodReason'),
+      moodHistory: document.getElementById('moodHistory')
+    };
 
     let currentUser = localStorage.getItem('currentUser');
-    if (!currentUser) {
-      window.location.href = 'index.html';
-    }
-
-    welcomeMessage.textContent = `Привет, ${currentUser}!`;
+    if (!currentUser) window.location.href = 'index.html';
+    elements.welcomeMessage.textContent = `Привет, ${currentUser}!`;
 
     const userDocRef = doc(db, "users", currentUser);
-
-    // Эмодзи для отображения в истории
-    const moodIcons = {
-        happy: '😊',
-        calm: '😌',
-        neutral: '😐',
-        sad: '😔',
-        angry: '😠'
-    };
-
-    // Вопросы для каждого настроения
-    const moodQuestions = {
-        happy: "Что сегодня произошло хорошего? Поделись радостью!",
-        calm: "Что помогло тебе чувствовать себя спокойно?",
-        neutral: "О чем ты думаешь сегодня?",
-        sad: "Что тебя огорчает? Можешь выговориться...",
-        angry: "Что вызвало раздражение? Проговори это — станет легче."
-    };
-
-    // Советы для каждого настроения
-    const moodAdvice = {
-        happy: "Запомни этот момент — он поможет в трудный день. Можешь записать его в «Дневник побед»!",
-        calm: "Такие моменты — как глоток воздуха. Цени их!",
-        neutral: "Иногда «нейтрально» — это просто передышка. Прислушайся к себе.",
-        sad: "Ты не один. Иногда грусть — это сигнал, что нужно замедлиться и позаботиться о себе.",
-        angry: "Гнев — это нормально. Попробуй глубоко вдохнуть 3 раза или выплеснуть эмоции на бумагу."
-    };
-
-    // Загрузка заметок
-    async function loadNotes() {
-      notesList.innerHTML = '';
-      try {
-        const docSnap = await getDoc(userDocRef);
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          const notes = data.notes || [];
-          notes.forEach((note, idx) => {
-            const div = document.createElement('div');
-            div.className = 'note';
-            div.textContent = note;
-            const btn = document.createElement('button');
-            btn.textContent = '×';
-            btn.title = 'Удалить заметку';
-            btn.onclick = () => {
-              if (confirm("Вы точно хотите удалить эту заметку?")) {
-                deleteNote(idx);
-              }
-            };
-            div.appendChild(btn);
-            notesList.appendChild(div);
-          });
-        }
-      } catch (e) {
-        console.error("Ошибка загрузки заметок:", e);
-      }
-    }
-
-    // Добавление заметки
-    async function addNote() {
-      const value = noteInput.value.trim();
-      if (!value) return;
-
-      try {
-        const docSnap = await getDoc(userDocRef);
-        let notes = [];
-        if (docSnap.exists()) {
-          notes = docSnap.data().notes || [];
-        }
-
-        if (notes.length >= 20) {
-          alert("Максимум 20 заметок.");
-          return;
-        }
-
-        notes.push(value);
-        await setDoc(userDocRef, { password: docSnap.exists() ? docSnap.data().password : "", notes }, { merge: true });
-
-        noteInput.value = '';
-        loadNotes();
-      } catch (e) {
-        console.error("Ошибка добавления заметки:", e);
-      }
-    }
-
-    // Удаление заметки
-    async function deleteNote(index) {
-      try {
-        const docSnap = await getDoc(userDocRef);
-        if (!docSnap.exists()) return;
-
-        let notes = docSnap.data().notes || [];
-        notes.splice(index, 1);
-
-        await updateDoc(userDocRef, { notes });
-        loadNotes();
-      } catch (e) {
-        console.error("Ошибка удаления заметок:", e);
-      }
-    }
-
-    // Очистка всех заметок
-    async function clearAllNotes() {
-      if (confirm("Очистить все заметки?")) {
-        try {
-          await updateDoc(userDocRef, { notes: [] });
-          loadNotes();
-        } catch (e) {
-          console.error("Ошибка очистки заметок:", e);
-        }
-      }
-    }
-
-    // Выход
-    function logout() {
-      localStorage.removeItem('currentUser');
-      window.location.href = 'index.html';
-    }
-
-    // Уютный режим
     let isCozyMode = localStorage.getItem('cozyMode') === 'true';
 
-    function toggleCozyMode() {
-        isCozyMode = !isCozyMode;
-        localStorage.setItem('cozyMode', isCozyMode);
-        
-        if (isCozyMode) {
-            // Активируем уютный режим
-            document.body.style.backgroundColor = '#f5efe6';
-            document.querySelector('.main').style.backgroundColor = '#f8f4ea';
-            document.querySelector('.sidebar').style.backgroundColor = '#f0e9dd';
-            document.querySelector('.sidebar').style.borderLeft = '2px solid #e0d6c2';
-            cozyModeBtn.textContent = '🌙 Уютный режим включен';
-            cozyModeBtn.style.backgroundColor = '#c9b8a0';
-            
-            // Добавляем падающие листья
-            addFallingElements();
-        } else {
-            // Возвращаем обычный режим
-            document.body.style.backgroundColor = '#f2f2f2';
-            document.querySelector('.main').style.backgroundColor = '#ffffff';
-            document.querySelector('.sidebar').style.backgroundColor = '#f9f9f9';
-            document.querySelector('.sidebar').style.borderLeft = '2px solid #ddd';
-            cozyModeBtn.textContent = '🌿 Включить уютный режим';
-            cozyModeBtn.style.backgroundColor = '#a5c4d4';
-            
-            // Удаляем все элементы уюта
-            document.querySelectorAll('.cozy-effect').forEach(el => el.remove());
-        }
+    // Firebase взаимодействие
+    async function loadData() {
+      const docSnap = await getDoc(userDocRef);
+      return docSnap.exists() ? docSnap.data() : {};
     }
 
-    function addFallingElements() {
-        const cozyElements = `
-            <style>
-                .cozy-effect {
-                    position: fixed;
-                    pointer-events: none;
-                    z-index: 1000;
-                }
-                .leaf {
-                    position: absolute;
-                    font-size: 24px;
-                    animation: float 10s linear infinite;
-                }
-                @keyframes float {
-                    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-                    10% { opacity: 1; }
-                    90% { opacity: 1; }
-                    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-                }
-            </style>
-        `;
-        document.head.insertAdjacentHTML('beforeend', cozyElements);
-        
-        // Создаем 15 падающих листьев
-        for (let i = 0; i < 15; i++) {
-            setTimeout(() => {
-                const leaf = document.createElement('div');
-                leaf.className = 'cozy-effect leaf';
-                leaf.innerHTML = '🍂';
-                leaf.style.left = Math.random() * 100 + 'vw';
-                leaf.style.animationDuration = (5 + Math.random() * 10) + 's';
-                leaf.style.animationDelay = Math.random() * 5 + 's';
-                document.body.appendChild(leaf);
-                
-                // Удаление листа после анимации
-                setTimeout(() => {
-                    leaf.remove();
-                }, 15000);
-            }, i * 300);
-        }
+    // Заметки
+    async function handleNotes() {
+      const notes = (await loadData()).notes || [];
+      elements.notesList.innerHTML = notes.map((note, idx) => `
+        <div class="note">
+          ${note}
+          <button onclick="deleteNote(${idx})">×</button>
+        </div>
+      `).join('');
     }
 
-    // Дневник достижений
+    async function addNote() {
+      const value = elements.noteInput.value.trim();
+      if (!value) return;
+      
+      const { notes = [] } = await loadData();
+      if (notes.length >= 20) return alert("Максимум 20 заметок");
+      
+      await updateDoc(userDocRef, { notes: [...notes, value] });
+      elements.noteInput.value = '';
+      handleNotes();
+    }
+
+    async function deleteNote(index) {
+      const { notes = [] } = await loadData();
+      notes.splice(index, 1);
+      await updateDoc(userDocRef, { notes });
+      handleNotes();
+    }
+
+    // Достижения
+    async function handleAchievements() {
+      const { achievements = [] } = await loadData();
+      elements.achievementsList.innerHTML = achievements.map((item, idx) => `
+        <div class="achievement">
+          <strong>${item.date}</strong><br>
+          ${item.text}
+          <button class="delete-achievement" data-idx="${idx}">×</button>
+        </div>
+      `).join('');
+    }
+
     async function addAchievement() {
-        const text = achievementInput.value.trim();
-        if (!text) return;
-
-        try {
-            const docSnap = await getDoc(userDocRef);
-            let achievements = docSnap.exists() ? docSnap.data().achievements || [] : [];
-            
-            achievements.unshift({ 
-                text: text, 
-                date: new Date().toLocaleDateString() 
-            });
-
-            await setDoc(userDocRef, { achievements }, { merge: true });
-            achievementInput.value = '';
-            loadAchievements();
-        } catch (e) {
-            console.error("Ошибка добавления достижения:", e);
-        }
+      const text = elements.achievementInput.value.trim();
+      if (!text) return;
+      
+      const { achievements = [] } = await loadData();
+      achievements.unshift({ 
+        text, 
+        date: new Date().toLocaleDateString() 
+      });
+      
+      await updateDoc(userDocRef, { achievements });
+      elements.achievementInput.value = '';
+      handleAchievements();
     }
 
-    async function loadAchievements() {
-        achievementsList.innerHTML = '';
-        try {
-            const docSnap = await getDoc(userDocRef);
-            if (docSnap.exists() && docSnap.data().achievements) {
-                docSnap.data().achievements.forEach((item, idx) => {
-                    const div = document.createElement('div');
-                    div.className = 'achievement';
-                    div.innerHTML = `
-                        <strong>${item.date}</strong><br>
-                        ${item.text}
-                        <button class="delete-achievement" data-idx="${idx}">×</button>
-                    `;
-                    achievementsList.appendChild(div);
-                });
-            }
-        } catch (e) {
-            console.error("Ошибка загрузки достижений:", e);
-        }
+    // Настроения
+    const moodData = {
+      questions: {
+        happy: "Что сегодня произошло хорошего?",
+        calm: "Что помогло успокоиться?",
+        neutral: "О чем думаешь?",
+        sad: "Что огорчает?",
+        angry: "Что вызвало гнев?"
+      },
+      advice: {
+        happy: "Сохрани это чувство!",
+        calm: "Цени моменты покоя.",
+        neutral: "Иногда пауза нужна.",
+        sad: "Ты не одинок.",
+        angry: "Попробуй глубоко подышать."
+      }
+    };
+
+    async function handleMood() {
+      const { moodEntries = [] } = await loadData();
+      elements.moodHistory.innerHTML = moodEntries.slice(0, 10).map(entry => `
+        <div class="mood-day" data-id="${entry.timestamp}">
+          ${moodIcons[entry.mood]}
+          <div class="mood-details">
+            <span class="mood-date">${new Date(entry.timestamp).toLocaleString()}</span>
+            <p class="mood-reason">${entry.reason}</p>
+          </div>
+          <button class="delete-mood-entry">×</button>
+        </div>
+      `).join('');
     }
 
-    // Удаление достижения
-    achievementsList.addEventListener('click', async (e) => {
-        if (e.target.classList.contains('delete-achievement')) {
-            const idx = e.target.dataset.idx;
-            if (confirm("Удалить эту запись?")) {
-                const docSnap = await getDoc(userDocRef);
-                let achievements = docSnap.data().achievements;
-                achievements.splice(idx, 1);
-                await updateDoc(userDocRef, { achievements });
-                loadAchievements();
-            }
-        }
+    elements.moodTracker.addEventListener('click', e => {
+      if (e.target.tagName === 'BUTTON') {
+        const mood = e.target.dataset.mood;
+        elements.moodQuestion.classList.remove('hidden');
+        elements.moodReason.placeholder = moodData.questions[mood];
+        elements.moodQuestion.dataset.mood = mood;
+      }
     });
 
-    // Трекер настроения
-    moodTracker.addEventListener('click', async (e) => {
-        if (e.target.tagName === 'BUTTON') {
-            const mood = e.target.dataset.mood;
-            
-            // Показываем вопрос
-            moodQuestion.classList.remove('hidden');
-            moodQuestion.querySelector('textarea').placeholder = moodQuestions[mood];
-            
-            // Сохраняем выбранное настроение для последующего сохранения
-            moodQuestion.dataset.currentMood = mood;
-        }
+    elements.saveMoodReason.addEventListener('click', async () => {
+      const mood = elements.moodQuestion.dataset.mood;
+      const reason = elements.moodReason.value.trim();
+      if (!reason) return alert("Напиши причину");
+      
+      const { moodEntries = [] } = await loadData();
+      moodEntries.unshift({
+        mood,
+        reason,
+        timestamp: new Date().toISOString()
+      });
+      
+      await updateDoc(userDocRef, { moodEntries });
+      handleMood();
+      elements.moodQuestion.classList.add('hidden');
+      elements.moodReason.value = '';
     });
 
-    // Сохранение причины настроения
-    saveMoodReasonBtn.addEventListener('click', async () => {
-        const mood = moodQuestion.dataset.currentMood;
-        const reason = moodReason.value.trim();
-        const today = new Date().toLocaleDateString();
-        
-        if (!reason) {
-            alert("Напиши хотя бы пару слов!");
-            return;
+    // Уютный режим
+    function toggleCozyMode() {
+      isCozyMode = !isCozyMode;
+      localStorage.setItem('cozyMode', isCozyMode);
+      
+      document.body.style.backgroundColor = isCozyMode ? '#f5efe6' : '#f2f2f2';
+      document.querySelector('.main').style.backgroundColor = isCozyMode ? '#f8f4ea' : '#ffffff';
+      document.querySelector('.sidebar').style.backgroundColor = isCozyMode ? '#f0e9dd' : '#f9f9f9';
+      elements.cozyMode.textContent = isCozyMode ? '🌙 Уютный режим' : '🌿 Обычный режим';
+      
+      if (isCozyMode) {
+        for (let i = 0; i < 15; i++) {
+          const leaf = document.createElement('div');
+          leaf.className = 'leaf cozy-effect';
+          leaf.innerHTML = '🍂';
+          leaf.style.cssText = `
+            left: ${Math.random() * 100}vw;
+            animation-duration: ${5 + Math.random() * 10}s;
+            animation-delay: ${Math.random() * 5}s;
+          `;
+          document.body.appendChild(leaf);
+          setTimeout(() => leaf.remove(), 15000);
         }
-
-        try {
-            const docSnap = await getDoc(userDocRef);
-            let moodData = docSnap.exists() ? docSnap.data().moodData || {} : {};
-            
-            // Записываем настроение + причину
-            moodData[today] = { 
-                mood: mood, 
-                reason: reason 
-            };
-            
-            await updateDoc(userDocRef, { moodData });
-            
-            // Показываем совет и историю
-            showMoodAdvice(mood);
-            showMoodHistory(moodData);
-            
-            // Сбрасываем форму
-            moodReason.value = '';
-            moodQuestion.classList.add('hidden');
-        } catch (e) {
-            console.error("Ошибка сохранения:", e);
-        }
-    });
-
-    // Показ совета
-    function showMoodAdvice(mood) {
-        const adviceBox = document.createElement('div');
-        adviceBox.className = `mood-advice advice-${mood}`;
-        adviceBox.textContent = moodAdvice[mood];
-        
-        // Удаляем предыдущий совет, если есть
-        const oldAdvice = document.querySelector('.mood-advice');
-        if (oldAdvice) oldAdvice.remove();
-        
-        moodQuestion.insertAdjacentElement('afterend', adviceBox);
+      }
     }
 
-    // Показ истории настроений
-    async function showMoodHistory(moodData) {
-        const dates = Object.keys(moodData).sort().reverse().slice(0, 7);
-        moodHistory.innerHTML = dates.map(date => {
-            const entry = moodData[date];
-            return `
-                <div class="mood-day" title="${date}: ${entry.reason || 'Нет описания'}">
-                    ${moodIcons[entry.mood]} 
-                    <span class="mood-date">${date}</span>
-                </div>
-            `;
-        }).join('');
-    }
-
-    // Загрузка данных при открытии страницы
-    window.addEventListener('load', async () => {
-        loadNotes();
-        loadAchievements();
-        
-        // Проверяем уютный режим
-        if (isCozyMode) {
-            toggleCozyMode();
-        }
-        
-        // Загружаем историю настроений
-        const docSnap = await getDoc(userDocRef);
-        if (docSnap.exists() && docSnap.data().moodData) {
-            showMoodHistory(docSnap.data().moodData);
-        }
+    // Инициализация
+    window.addEventListener('load', () => {
+      if (isCozyMode) toggleCozyMode();
+      handleNotes();
+      handleAchievements();
+      handleMood();
     });
 
     // Обработчики событий
-    addNoteBtn.addEventListener('click', addNote);
-    clearBtn.addEventListener('click', clearAllNotes);
-    logoutBtn.addEventListener('click', logout);
-    cozyModeBtn.addEventListener('click', toggleCozyMode);
-    addAchievementBtn.addEventListener('click', addAchievement);
+    elements.addNote.addEventListener('click', addNote);
+    elements.clearNotes.addEventListener('click', () => {
+      if (confirm("Очистить все заметки?")) updateDoc(userDocRef, { notes: [] }).then(handleNotes);
+    });
+    elements.logout.addEventListener('click', () => {
+      localStorage.removeItem('currentUser');
+      window.location.href = 'index.html';
+    });
+    elements.cozyMode.addEventListener('click', toggleCozyMode);
+    elements.addAchievement.addEventListener('click', addAchievement);
+    elements.achievementsList.addEventListener('click', async e => {
+      if (e.target.classList.contains('delete-achievement')) {
+        const idx = e.target.dataset.idx;
+        const { achievements = [] } = await loadData();
+        achievements.splice(idx, 1);
+        await updateDoc(userDocRef, { achievements });
+        handleAchievements();
+      }
+    });
+    elements.moodHistory.addEventListener('click', async e => {
+      if (e.target.classList.contains('delete-mood-entry')) {
+        const timestamp = e.target.closest('.mood-day').dataset.id;
+        const { moodEntries = [] } = await loadData();
+        const filtered = moodEntries.filter(entry => entry.timestamp !== timestamp);
+        await updateDoc(userDocRef, { moodEntries: filtered });
+        handleMood();
+      }
+    });
   </script>
 </body>
 </html>
